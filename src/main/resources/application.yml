@@ -5,8 +5,10 @@ app:
   properties:
     name: 益购
     metaKeywords: 益购,CMS,JAVA
-    metaDescription: 云鹏CMS介绍
+    metaDescription: 益购介绍
     copyright: "©2016 杭州益购信息科技有限公司"
+    phone: 13588204615
+    email: 2844870322@qq.com
 spring:
   profiles:
     active: dev
