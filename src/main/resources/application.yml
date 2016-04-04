@@ -1,0 +1,81 @@
+app:
+  authorities:
+    - ROLE_USER
+    - ROLE_ADMIN
+  properties:
+    name: 益购
+    metaKeywords: 益购,CMS,JAVA
+    metaDescription: 云鹏CMS介绍
+    copyright: "©2016 杭州益购信息科技有限公司"
+spring:
+  profiles:
+    active: dev
+  jersey:
+    init:
+      jersey.config.server.mvc.templateBasePath.freemarker: /templates/default/
+      jersey.config.servlet.filter.staticContentRegex: .*/(images/|img/|css/|js/|fonts/|upload/|favicon.ico).*
+      jersey.config.server.mvc.caching.freemarker: true
+      jersey.config.server.mediaTypeMappings: "json: application/json, html: text/html"
+      jersey.config.disableMoxyJson: true
+    type: filter
+    filter:
+      order: 3
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://db/yigou?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    type: com.zaxxer.hikari.HikariDataSource
+    username: root
+    password: 
+  jpa:
+    database: MYSQL
+    generate-ddl: false
+    properties:
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.auto_evict_collection_cache: true
+      hibernate.cache.use_reference_entries: true
+      hibernate.physical_naming_strategy: com.yigou.core.hibernate.HibernatePhysicalNamingStrategy
+      hibernate.search.default.directory_provider: filesystem
+      hibernate.search.default.indexBase: /mnt/java/cms/lucene
+      javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  dao:
+    exceptiontranslation:
+      enabled: true
+  aop:
+    auto: true
+    proxy-target-class: true
+---
+
+spring:
+  profiles: dev
+  jersey:
+    init:
+      jersey.config.server.mvc.caching.freemarker: false
+  datasource:
+    url: jdbc:mysql://127.0.0.1/yigou?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate.search.default.directory_provider: ram
+--- 
+
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: org.hsqldb.jdbcDriver
+    url: jdbc:hsqldb:mem:cms
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    database: HSQL
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate.search.default.directory_provider: ram

@@ -1,0 +1,157 @@
+{{< layout}}
+{{$title}} {{#model}}编辑{{/model}}{{^model}}添加{{/model}}模块 - {{/title}}
+{{$nav}}
+<ol class="breadcrumb no-margin">
+	<li><a href="{{request.contextPath}}/admin/index.html">首页</a></li>
+	<li><a href="{{request.contextPath}}/admin/module.html">模块</a></li>
+	<li class="active">{{#model}}编辑{{/model}}{{^model}}添加{{/model}}模块</li>
+</ol>
+{{/nav}}
+{{$style}}
+<link rel="stylesheet" href="{{request.contextPath}}/templates/default/admin/css/dropzone.min.css">
+<style>
+.dropzone {
+	border: 1px solid #E8ECF3;
+	border-radius: 2px;
+}
+</style>
+{{/style}}
+{{$script}}
+<script type="text/javascript" src="{{request.contextPath}}/templates/default/admin/js/dropzone.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".btn-reset").click(function() {
+		location.href = "{{request.contextPath}}/admin/module.html";
+	});
+	Dropzone.options.upload = {
+			url: "{{request.contextPath}}/admin/upload.json",
+			maxFilesize: 2,
+			addRemoveLinks: true,
+			createImageThumbnails: false,
+			maxFiles: 1,
+			acceptedFiles: "image/*",
+			dictDefaultMessage: "拖放文件到此上传",
+			dictRemoveFile: "删除文件",
+			dictCancelUpload: "取消上传",
+			dictMaxFilesExceeded: "只能有一个封面呀",
+			dictRemoveFileConfirmation: "真的要删除这个文件吗？",
+			init: function() {
+				var myDropzone = this;
+				myDropzone.on("success", function(file, data, e) {
+					var exists = false;
+					$(".upload img").each(function() {
+						if ($(this).attr("src") == data.url) {
+							toastr.error('这张图片已经上传过了哟。');
+							exists = true;
+						}
+					});
+					if (exists) {
+						myDropzone.removeFile(file);
+						return;
+					}
+					$(file.previewElement).removeClass("dz-file-preview").addClass("dz-image-preview").find("img").attr("src", data.url).attr("alt", data.file_name);
+					$(file.previewElement).find(".dz-filename>span").text(data.url);
+					$(file.previewElement).append("<input type=\"hidden\" name=\"cover\" value=\"" + data.url + "\">");
+				}).on("addedfile", function(file) {
+					if ($(".dz-preview").length > 1) {
+						toastr.error('只能有一个封面呀。');
+						myDropzone.removeFile(file);
+					}
+				});
+			}
+		};
+		$(".dz-remove").click(function() {
+			if(confirm(Dropzone.options.upload.dictRemoveFileConfirmation)) {
+				$(this).parent().remove();
+			}
+		});
+		$(".upload").on("click", ".dz-preview", function() {
+			var src = $(this).find("img").attr("src");
+			$(".form-control[name=cover]").val(src);
+		}).on("click", ".dz-filename>span", function(e) {
+			e.stopPropagation();
+		});
+		//表单名称验证
+		var name = $("input[name='name']");
+		var code = $("input[name='code']");
+		var execution = $("textarea[name='execution']");
+		var validateFunc = function(dom){
+			var validator = new Validator();
+			validator.add(name,[
+				{strategy:'isNotEmpty',errorMsg:'名称不能为空!'},
+			]);
+			validator.add(code,[
+				{strategy:'isNotEmpty',errorMsg:'代号不能为空!'},
+			]);
+			validator.add(execution,[
+				{strategy:'isNotEmpty',errorMsg:'代码不能为空!'},
+			]);
+			var error = validator.start(dom);
+			return error;
+		};
+		$('input').blur(function(){
+			validateFunc(this);
+		})
+		$('textarea').blur(function(){
+			validateFunc(this);
+		})
+		$("form").submit(function(e) {
+		    var error = validateFunc();
+			if(error){
+				return true;
+			}
+			e.preventDefault();
+			return false;
+		});
+});
+</script>
+{{/script}}
+{{$content}}
+<div class="row mg-b">
+	<div class="col-xs-12">
+		<h3 class="no-margin">{{#model}}编辑{{/model}}{{^model}}添加{{/model}}模块</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<section class="panel">
+			<header class="panel-heading">填写模块信息</header>
+			<div class="panel-body">
+				<form class="form-horizontal" action="{{request.contextPath}}/admin/module{{#model}}/{{id}}{{/model}}.html{{#model}}?_method=PUT{{/model}}" method="post">
+					{{#model}}
+					<input type="hidden" name="id" value="{{id}}">
+					{{/model}}
+					<div class="form-group">
+						<label class="col-sm-2 control-label">名称</label>
+						<div class="col-sm-10">
+							<input class="form-control" name="name" type="text" value="{{model.name}}">
+							<label class="error-information"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">代号</label>
+						<div class="col-sm-10">
+							<input class="form-control" name="code" type="text" value="{{model.code}}">
+							<label class="error-information"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">代码</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" name="execution">{{model.execution}}</textarea>
+							<label class="error-information"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-success">提交</button>
+							<button type="reset" class="btn btn-reset btn-default">取消</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+	</div>
+</div>
+{{/content}}
+{{/layout}}

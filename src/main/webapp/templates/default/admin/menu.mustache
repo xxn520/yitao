@@ -1,0 +1,384 @@
+{{<layout}}
+{{$style}}
+<link rel="stylesheet" href="{{request.contextPath}}/templates/default/admin/css/select2.min.css">
+<style type="text/css">
+.touch .select2-results li:hover {
+	background-color: #5897FB !important;
+}
+.trumbowyg-box {
+	width: 100%;
+	margin: 0;
+	border-radius: 2px;
+}
+.trumbowyg-button-pane {
+	background: none;
+}
+.select2-container--default .select2-selection--single {
+	border-radius: 2px;
+	border: 1px solid #E8ECF3;
+	line-height: 34px;
+	height: 34px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	line-height: 34px;
+}
+.select2-dropdown, .select2-container--default .select2-search--dropdown .select2-search__field, .dropzone {
+	border: 1px solid #E8ECF3;
+	border-radius: 2px;
+}
+</style>
+{{/style}}
+{{$script}}
+<script type="text/javascript" src="{{request.contextPath}}/templates/default/admin/js/select2.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var nameField = $("<input type=\"text\" name=\"name\" class=\"form-control\" required=\"required\">");
+	var linkField = $("<input type=\"text\" name=\"link\" class=\"form-control\" required=\"required\">");
+	var sortField = $("<input type=\"text\" name=\"sort\" class=\"form-control\" required=\"required\">");
+	var categoryField = $("<select id='category' name='category' data-placeholder='分类' class='form-control'></select>");
+	// 编辑前保存副本
+	var prev = {};
+	var reset = function(tr, type) {
+		if (!tr.find(".menu-id").val()) {
+			tr.remove();
+		}
+		var nameCol = tr.find(".menu-name");
+		nameField.remove();
+		var linkCol = tr.find(".menu-link");
+		linkField.remove();
+		var categoryCol = tr.find(".menu-category");
+		categoryField.remove();
+		var sortCol = tr.find(".menu-sort");
+		sortField.remove();
+		
+		// type===3表示取消，因此要恢复为prev里的数据，否则为新数据
+		if(type!==3){
+			nameCol.text(nameField.val());
+			linkCol.text(linkField.val());
+			if(prev.category==categoryField.text() || typeof(prev.category) === "undefined"){
+				categoryCol.text(categoryField.text());
+			} else if(typeof(prev.category) !== "undefined" && typeof(categoryField.text()) !== "undefined"){
+				categoryCol.text(categoryField.text().substring(prev.category.length,categoryField.text().length));
+			}
+			sortCol.text(sortField.val());
+		}else{
+			nameCol.text(prev.name);
+			linkCol.text(prev.link);
+			categoryCol.text(prev.category);
+			sortCol.text(prev.sort);
+		}
+		
+		categoryField = $("<select id='category' name='category' data-placeholder='分类' class='form-control'></select>");
+		
+		tr.find(".action-normal").show();
+		tr.find(".action-edit").hide();
+	};
+	var $btn;
+	// 所选分类
+	var selectedCategory = 0;
+	
+ 	$(document)
+ 	.on("click", "button.fa-plus", function() {
+ 		var ptr = nameField.parents("tr");
+		if (ptr.length) {
+			reset(ptr);
+		}
+ 		var ntr = $(".template-row").clone().removeClass("template-row");
+		ntr.find(".fa-long-arrow-right").hide();
+		ntr.find(".menu-name").append(nameField.val(""));
+		ntr.find(".menu-link").append(linkField.val(""));
+		ntr.find(".menu-sort").append(sortField.val(""));
+		if ($(this).hasClass("menu-sub")) {
+			ntr.find(".fa-long-arrow-right").show();
+			ntr.find(".menu-parent").val($(this).parents("tr").find(".menu-id").val());
+			ntr.find(".template-menu-sub").hide();
+			ntr.insertAfter($(this).parents("tr"));
+		} else {
+			ntr.find(".menu-category").append(categoryField.val(""));
+			$("table").append(ntr);
+			initSelect('#category');
+		}
+		$(".empty-row").hide();
+ 	})
+	.on("click", "button.fa-remove", function() {
+		var tbody = $(this).parents("tbody");
+		var tr = $(this).parents("tr");
+		var idField = tr.find(".menu-id");
+		if (idField.length) {
+			$btn = $(this).button('loading');
+			var url = "/" + idField.val() + ".json?_method=DELETE";
+			url = location.origin+location.pathname.replace(".html", url);
+			var confirmed = confirm("你确定要删除吗？");
+			if (confirmed) {
+				$.post(url, function(data) {
+					$btn.button('reset');
+					tr.remove();
+					if (tbody.find("tr").length == 2) {
+						$(".empty-row").show();
+					}
+					reset(tr, 2);
+				});
+			} else {
+				$btn.button('reset');
+				/* tr.find(".action-normal").show();
+				tr.find(".action-edit").hide();
+				reset(tr); */
+			}
+		} else {
+			$btn.button('reset');
+			tr.remove();
+			if (tbody.find("tr").length == 2) {
+				$(".empty-row").show();
+			}
+		}
+	})
+	.on("click", "button.fa-check", function() {
+		$btn = $(this).button('loading');
+		var tr = $(this).parents("tr");
+		var body = {};
+		tr.find("input").each(function() {
+			if (!this.name) {
+				return;
+			}
+			body[this.name] = this.value;
+		});
+		body.category = selectedCategory;
+		if(!body.name) {
+			$btn.button('reset');
+			reset();
+			return;
+		}
+		var url = body.id ? "/" + body.id + ".json?_method=PUT" : ".json";
+		url = location.origin+location.pathname.replace(".html", url);
+		$.post(url, body, function(data) {
+			tr.find(".menu-id").val(data.id);
+			$btn.button('reset');
+			reset(tr, 1);
+		});
+	})
+	.on("click", "button.fa-edit", function() {
+		// 重置前一个状态
+		prev = {};
+		var tr = $(this).parents("tr");
+		// 隐藏原有操作项，显示编辑相关操作项
+		tr.find(".action-normal").hide();
+		tr.find(".action-edit").show();
+		// 把不可修改的表格改为可修改的input，并填充相关内容
+		var nameCol = tr.find(".menu-name");
+		var name = nameCol.text();
+		prev.name = name;
+		nameCol.text("");
+		nameCol.append(nameField.val(name));
+		var linkCol = tr.find(".menu-link");
+		var link = linkCol.text();
+		prev.link = link;
+		linkCol.text("");
+		linkCol.append(linkField.val(link));
+		var categoryCol = tr.find(".menu-category");
+		var category = categoryCol.text();
+		prev.category = category ? category : "";
+		categoryCol.text("");
+		// 如果是一级菜单才需要把select放入
+		if(tr.find(".menu-parent").length<=0){
+			categoryField = $("<select id='category' name='category' data-placeholder='分类' class='form-control'><option value='0' seletecd>"+category+"</option></select>");
+			categoryCol.append(categoryField);
+			initSelect('#category', category);
+		}
+		var sortCol = tr.find(".menu-sort");
+		var sort = sortCol.text();
+		prev.sort = sort;
+		sortCol.text("");
+		sortCol.append(sortField.val(sort));
+	})
+	.on("click", "button.fa-eject", function() {
+		var tr = $(this).parents("tr");
+		reset(tr, 3);
+	})
+	.on("change", "#category", function(){
+		selectedCategory = $("#category").val();
+	})
+	.ajaxError(function() {
+		$btn.button("reset");
+		var ptr = nameField.parents("tr");
+		if (ptr.length) {
+			reset(ptr);
+		}
+		toastr.error('出错了哟');
+	});
+ 	
+ 	// 初始化对应selector的select
+ 	var initSelect = function(selector ,value) {
+ 		$(selector).select2({
+ 			ajax: {
+ 				url: "{{request.contextPath}}/admin/menu-category.json",
+ 				cache: "true",
+ 			    data: function (params) {
+ 		        	return {
+ 		          		page: params.page
+ 		        	};
+ 		      	},
+ 				processResults: function(data) {
+ 					var options = [{
+ 						id: 0,
+ 						text: "全部"
+ 					}];
+ 					$(data.content).each(function() {
+ 						// 获取并保存选中的菜单分类
+ 						if(this.name==value){
+ 							selectedCategory = this.id;
+ 						}
+ 						options.push({
+ 							id: this.id,
+ 							text: this.description
+ 						});
+ 					});
+ 					return {
+ 						results: options,
+ 						pagination: {
+ 							more: !data.last
+ 						}
+ 					}
+ 				}
+ 			},
+ 			minimumResultsForSearch: Infinity
+ 		});
+ 	}
+ 	
+ 	initSelect('select');
+});
+</script>
+{{/script}}
+{{$title}}
+菜单管理 - 
+{{/title}}
+{{$nav}}
+<ol class="breadcrumb no-margin">
+	<li><a href="index.html">首页</a></li>
+	<li class="active">菜单</li>
+</ol>
+{{/nav}}
+{{$content}}
+<div class="row mg-b">
+	<div class="col-xs-6">
+		<h3 class="no-margin">菜单管理</h3>
+		<small></small>
+	</div>
+	<div class="col-xs-6 text-right">
+		<button class="fa fa-plus btn btn-white"> 添加菜单</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<section class="panel">
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="javascript:void(0)">菜单列表</a></li>
+				<li><a href="{{request.contextPath}}/admin/menu-category.html">菜单分类</a></li>
+			</ul>
+			<div class="panel-heading">
+				<form class="form-inline" role="form" method="get" action="{{request.contextPath}}/admin/menu.html">
+					&nbsp;
+					<div class="form-group">
+						<label for="category_id">分类: </label>
+						<select class="form-control" id="category_id" name="category_id" data-placeholder="分类" style="width:120px">
+							{{#model.model}}
+								<option value="{{id}}" selected>{{description}}</option>
+							{{/model.model}}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-default">搜索</button>
+				</form>
+			</div>
+			<div class="panel-body no-padding">
+				<div class="table-responsive">
+					<table 
+						class="table table-hover table-striped responsive" >
+						<thead>
+							<tr>
+								<th width="20%">菜单名</th>
+								<th>链接</th>
+								<th width="20%">分类</th>
+								<th width="10%">排序</th>
+								<th width="20%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="template-row">
+								<td class="form-inline">
+									<i class="fa fa-long-arrow-right"></i>
+									<span class="menu-name"></span>
+								</td>
+								<td class="menu-link"></td>
+								<td class="menu-category"></td>
+								<td class="menu-sort"></td>
+								<td nowrap="nowrap" valign="middle">
+									<input type="hidden" name="id" class="menu-id">
+									<input type="hidden" name="parent" class="menu-parent">
+									<span class="action-normal" style="display:none">
+									<button class="fa fa-plus btn btn-white menu-sub template-menu-sub"> 添加子菜单</button>
+									<button class="fa fa-edit btn btn-white"> 编辑</button>
+									</span>
+									<span class="action-edit">
+										<button class="fa fa-check btn btn-success" data-loading-text="处理中..." autocomplete="off"> 完成</button>
+										<button class="fa fa-remove btn btn-danger" type="button"> 删除</button>
+									</span>
+								</td>
+							</tr>
+							{{#model}}
+							<tr>
+								<td class="menu-name form-inline">{{name}}</td>
+								<td class="menu-link">{{link}}</td>
+								<td class="menu-category">{{category.description}}</td>
+								<td class="menu-sort">{{sort}}</td>
+								<td nowrap="nowrap">
+									<input type="hidden" name="id" class="menu-id" value="{{id}}">
+									<span class="action-normal">
+									{{#id}}<button class="fa fa-plus btn btn-white menu-sub"> 添加子菜单</button>{{/id}}
+									<button class="fa fa-edit btn btn-white"> 编辑</button>
+									</span>
+									<span class="action-edit" style="display:none">
+										<button class="fa fa-check btn btn-success" data-loading-text="处理中..." autocomplete="off"> 完成</button>
+										<button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
+										<button class="fa fa-eject btn"> 取消</button>
+									</span>
+								</td>
+							</tr>
+							{{#children}}
+							<tr>
+								<td class="form-inline"> <i class="fa fa-long-arrow-right"></i> <span class="menu-name">{{name}}</span></td>
+								<td class="menu-link">{{link}}</td>
+								<td class="menu-category"></td>
+								<td class="menu-sort">{{sort}}</td>
+								<td nowrap="nowrap">
+									<input type="hidden" name="id" class="menu-id" value="{{id}}">
+									<input type="hidden" name="parent" class="menu-parent" value="{{parent.id}}">
+									<span class="action-normal">
+									<button class="fa fa-edit btn btn-white"> 编辑</button>
+									</span>
+									<span class="action-edit" style="display:none">
+										<button class="fa fa-check btn btn-success" data-loading-text="处理中..." autocomplete="off"> 完成</button>
+										<button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
+										<button class="fa fa-eject btn"> 取消</button>
+									</span>
+								</td>
+							</tr>
+							{{/children}}
+							{{/model}}
+							{{^model}}
+							<tr class="empty-row">
+								<td nowrap="nowrap">
+								还没有菜单呀，<button class="fa fa-plus btn btn-white"> 添加</button> 一个
+								</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							{{/model}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+{{/content}}
+{{/layout}}

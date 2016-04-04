@@ -1,0 +1,11 @@
+/.settings/
+/bower_components/
+/node_modules/
+/target/
+/.classpath
+.DS_Store
+/.project
+upload/
+bin/
+/.idea/
+yigou.iml

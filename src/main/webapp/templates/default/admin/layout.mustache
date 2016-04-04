@@ -1,0 +1,253 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+<title>{{$title}}{{/title}}{{app.name}}</title>
+
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/pace/theme.css">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/bxslider/jquery.bxslider.css">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/toastr.min.css">
+
+
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/bootstrap/bootstrap.min.css">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/animate.min.css">
+
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/panel.css">
+
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/skins/palette.1.css"
+	id="skin">
+<link rel="stylesheet"
+	href="{{request.contextPath}}/templates/default/admin/css/main.css">
+{{$style}}{{/style}}
+
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script src="{{request.contextPath}}/templates/default/admin/js/modernizr.js"></script>
+</head>
+
+<body>
+	<div class="app" data-sidebar="locked">
+		<header class="header header-fixed navbar">
+			<div class="brand">
+				<a href="javascript:;" class="fa fa-bars off-left visible-xs"
+					data-toggle="off-canvas" data-move="ltr"></a> <a href="index.html"
+					class="navbar-brand"> <i class="fa fa-stop mg-r-sm"></i> <span
+					class="heading-font"> {{app.name}} <b>控制台</b>
+				</span>
+				</a>
+			</div>
+			<div class="navbar-left navbar-form hidden-xs">
+				{{$nav}}{{/nav}}
+			</div>
+			<!-- <form class="navbar-form navbar-left hidden-xs" role="search">
+				<div class="form-group">
+					<button class="btn no-border no-margin bg-none no-pd-l"
+						type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+					<input type="text" class="form-control no-border no-padding search"
+						placeholder="搜索">
+				</div>
+			</form> -->
+			<ul class="nav navbar-nav navbar-right off-right">
+				<li class="hidden-xs"><a href="javascript:;"> {{currentUser.username}} </a></li>
+				<li class="quickmenu">
+					<a href="javascript:;" data-toggle="dropdown"> 
+						<img src="{{#currentUser.avatar}}{{.}}{{/currentUser.avatar}}{{^currentUser.avatar}}{{request.contextPath}}/templates/default/admin/img/avatar.jpg{{/currentUser.avatar}}"
+							class="avatar pull-left img-circle" alt="user" title="user">
+							<i class="caret mg-l-xs hidden-xs no-margin"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right mg-r-xs">
+						<!-- <li>
+							<a href="javascript:;">
+								<div class="pd-t-sm"> gerald@morris.com <br>
+									<small class="text-muted">4.2 MB of 51.25 GB used</small>
+								</div>
+								<div class="progress progress-xs no-radius no-margin mg-b-sm">
+									<div class="progress-bar progress-bar-success"
+										role="progressbar" aria-valuenow="40" aria-valuemin="0"
+										aria-valuemax="100" style="width: 40%"></div>
+								</div>
+						</a></li> -->
+						<li><a href="{{request.contextPath}}/admin/profile.html">账号设置</a></li>
+						<li><a href="{{request.contextPath}}/admin/reset.html">重设密码</a></li>
+						<!-- <li><a href="javascript:;">帮助 ?</a></li> -->
+						<li class="divider"></li>
+						<li><a href="{{request.contextPath}}/admin/logout.do">退出</a></li>
+					</ul></li>
+			</ul>
+		</header>
+
+		<section class="layout">
+
+			<aside class="sidebar canvas-left">
+
+				<nav class="main-navigation">
+					<ul>
+						<li
+							class="{{#loc}}/admin/index.html:active{{/loc}}"><a
+							href="{{request.contextPath}}/admin/index.html"> <i
+								class="fa fa-home"></i> <span>首页</span>
+						</a></li>
+						<li class="{{#loc}}/admin/menu.html:active{{/loc}}"><a
+							href="{{request.contextPath}}/admin/menu.html"><i
+								class="fa fa-list"></i> <span>菜单</span> </a></li>
+						<li class="{{#loc}}/admin/category.html:active{{/loc}}"><a
+							href="{{request.contextPath}}/admin/category.html"> <i
+								class="fa fa-tasks"></i> <span>分类</span>
+						</a></li>
+						<li class="{{#loc}}/admin/article.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/article.html"> <i class="fa fa-book"></i> <span>文章</span></a>
+						</li>
+						<li class="{{#loc}}/admin/comment.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/comment.html"> <i class="fa fa-comments"></i> <span>评论</span></a>
+						</li>
+						<li class="{{#loc}}/admin/module.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/module.html"> <i class="fa fa-object-group"></i>
+								<span>模块</span>
+							</a>
+						</li>
+						<li class="{{#loc}}/admin/page.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/page.html"> <i class="fa fa-file"></i> <span>页面</span>
+						</a></li>
+						{{#request.attr.menus.managementMenu}}
+							<li class="{{#loc}}{{link}}:active{{/loc}}">
+								<a href="{{request.contextPath}}{{link}}"> <i class="fa {{iconclass}}"></i>
+									<span>{{name}}</span>
+								</a>
+							</li>
+							{{#children}}
+							<li class="{{#loc}}{{link}}:active{{/loc}}">
+								<a href="{{request.contextPath}}{{link}}"> <i class="fa fa-long-arrow-right managementmenu"></i>
+									<span>{{name}}</span>
+								</a>
+							</li>
+							{{/children}}
+		                {{/request.attr.menus.managementMenu}}
+						<li class="{{#loc}}/admin/user.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/user.html"> <i class="fa fa-user"></i> <span>用户</span>
+						</a></li>
+						<li class="{{#loc}}/admin/user-group.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/user-group.html"> <i class="fa fa-users"></i> <span>用户组</span>
+						</a></li>
+						<li class="{{#loc}}/admin/setting.html:active{{/loc}}">
+							<a href="{{request.contextPath}}/admin/setting.html"> <i class="fa fa-gears"></i>
+								<span>设置</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+
+				<footer>
+					<!-- <div class="about-app pd-md animated pulse">
+						<a href="javascript:;"> <img
+							src="{{request.contextPath}}/templates/default/admin/img/about.png"
+							alt="">
+						</a> <span> <b>Cameo</b>&#32;is a responsive admin template
+							powered by bootstrap 3. <a href="javascript:;"> <b>Find
+									out more</b>
+						</a>
+						</span>
+					</div> -->
+					<div class="footer-toolbar pull-left">
+						<!-- <a href="javascript:;" class="pull-left help"> <i
+							class="fa fa-question-circle"></i>
+						</a> --> <a href="javascript:;"
+							class="toggle-sidebar pull-right hidden-xs"> <i
+							class="fa fa-angle-left"></i>
+						</a>
+					</div>
+				</footer>
+
+			</aside>
+
+			<section class="main-content">
+
+				<div class="content-wrap">{{$content}}{{/content}}</div>
+
+			</section>
+
+		</section>
+	</div>
+</body>
+
+</html>
+
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/bootstrap/bootstrap.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/jquery.easing.min.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/jquery.placeholder.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/fastclick.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/moment.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/skycons.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/jquery.blockUI.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/raphael.min.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/switchery/switchery.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/jquery.slimscroll.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/bxslider/jquery.bxslider.min.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/pace/pace.min.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/off-canvas.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/main.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/panel.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/validationcheck.js"></script>
+<script type="text/javascript"
+	src="{{request.contextPath}}/templates/default/admin/js/toastr.min.js"></script>
+{{#model.hasContent}}
+<script type="text/javascript" src="{{request.contextPath}}/templates/default/admin/js/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.pagination').twbsPagination({
+		totalPages : {{model.totalPages}},
+		startPage: {{model.number}} + 1,
+		initiateStartPageClick: false,
+		first: "«",
+		prev: "‹",
+		next: "›",
+		last: "»",
+		onPageClick : function(event, page) {
+			var href = location.search;
+			if(href!=""){
+				href = href.indexOf("page=") > 0 ? href.replace(/page=[\d]+/, "page=" + (page - 1)) : href + "&page=" + (page - 1);
+			}else{
+				href = location.href + "?page=" + (page - 1);
+			}
+			location.href = href;
+		}
+	});
+});
+</script>
+{{/model.hasContent}}
+{{$script}}{{/script}}

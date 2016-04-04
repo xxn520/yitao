@@ -1,0 +1,80 @@
+{{<layout}}
+{{$script}}
+<script type="text/javascript">
+$(document).ready(function() {
+ 	$(document).ajaxError(function() {
+		toastr.error('出错了哟');
+	});
+ 	$(".fa-edit").click(function() {
+ 		var id = $(this).parents("tr").find("input:hidden").val();
+ 		location.href = "{{request.contextPath}}/admin/page/" + id + ".html";
+ 	});
+});
+</script>
+{{/script}}
+{{$title}}
+页面管理 - 
+{{/title}}
+{{$nav}}
+<ol class="breadcrumb no-margin">
+	<li><a href="index.html">首页</a></li>
+	<li class="active">页面</li>
+</ol>
+{{/nav}}
+{{$content}}
+<div class="row mg-b">
+	<div class="col-xs-6">
+		<h3 class="no-margin">页面管理</h3>
+	</div>
+	<div class="col-xs-6 text-right">
+		<a class="fa fa-plus btn btn-white" href="{{request.contextPath}}/admin/page/detail.html"> 添加页面</a>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<section class="panel">
+			<header class="panel-heading">列表</header>
+			<div class="panel-body no-padding">
+				<div class="table-responsive">
+					<table 
+						class="table table-hover table-striped responsive" >
+						<thead>
+							<tr>
+								<th width="20%">页面</th>
+								<th>封面</th>
+								<th width="20%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#model}}
+							<tr>
+								<td class="page-name form-inline">{{title}}</td>
+								<td class="page-cover">{{#cover}}<img src="{{cover}}" class="thumbnail" style="max-height: 120px;width: auto;">{{/cover}}</td>
+								<td nowrap="nowrap">
+									<input type="hidden" name="id" class="page-id" value="{{id}}">
+									<span class="action-normal">
+										<button class="fa fa-edit btn btn-white"> 编辑</button>
+										<button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
+									</span>
+								</td>
+							</tr>
+							{{/model}}
+							{{^model}}
+							<tr class="empty-row">
+								<td nowrap="nowrap">
+								还没有页面呀，<a class="fa fa-plus btn btn-white" href="{{request.contextPath}}/admin/page/detail.html"> 添加</a> 一个
+								</td>
+								<td></td>
+								<td></td>
+							</tr>
+							{{/model}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		{{>pagination}}
+	</div>
+</div>
+{{/content}}
+{{/layout}}
