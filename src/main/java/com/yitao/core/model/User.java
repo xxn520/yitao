@@ -19,10 +19,6 @@ import javax.ws.rs.FormParam;
 @Entity
 @Cacheable
 public class User extends BaseModel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5585108476095742537L;
 
 	@FormParam("username")
 	@Column(unique = true)

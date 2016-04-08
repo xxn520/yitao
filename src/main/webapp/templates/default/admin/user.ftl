@@ -114,6 +114,7 @@
 
 <#macro overrideScript>
 <script type="text/javascript" src="${contextPath}/templates/default/admin/js/select2.min.js"></script>
+<script type="text/javascript" src="${contextPath}/templates/default/admin/js/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     var $btn;
@@ -192,6 +193,25 @@ $(document).ready(function() {
     $(".fa-edit").click(function() {
         var id = $(this).parents("tr").find("input:hidden").val();
         location.href = "${contextPath}/admin/user/" + id + ".html";
+    });
+
+    $('.pagination').twbsPagination({
+        totalPages : ${model.totalPages},
+        startPage: ${model.number} + 1,
+        initiateStartPageClick: false,
+        first: "«",
+        prev: "‹",
+        next: "›",
+        last: "»",
+        onPageClick : function(event, page) {
+            var href = location.search;
+            if(href!=""){
+                href = href.indexOf("page=") > 0 ? href.replace(/page=[\d]+/, "page=" + (page - 1)) : href + "&page=" + (page - 1);
+            }else{
+                href = location.href + "?page=" + (page - 1);
+            }
+            location.href = href;
+        }
     });
 });
 </script>

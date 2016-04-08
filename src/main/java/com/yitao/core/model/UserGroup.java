@@ -20,10 +20,6 @@ import java.util.Set;
 @Cacheable
 public class UserGroup extends BaseModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5465704477706093752L;
 	@FormParam("name")
 	@Column(unique = true)
 	private String name;
