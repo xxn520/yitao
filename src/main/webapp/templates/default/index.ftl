@@ -1,14 +1,12 @@
 <#include "layout.ftl">
 
-<#macro overrideStyle>
+<#macro overrideTitle>
+    首页 -
 </#macro>
 
 <#macro overrideContent>
 <div>content overriden</div>
 </#macro>
 
-<#macro overrideScript>
-</#macro>
-
-<@layout style=overrideStyle content=overrideContent script=overrideScript>
+<@layout title=overrideTitle style=defaultStyle content=overrideContent script=defaultScript>
 </@layout>

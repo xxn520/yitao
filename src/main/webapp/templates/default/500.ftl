@@ -1,9 +1,15 @@
+<#include "layout.ftl">
+
+<#macro overrideTitle>
+    出错啦 -
+</#macro>
+
 <#macro overrideContent>
 <div class="error">
     <div class="error-code"><b>500</b></div>
     <div class="mg-b-lg error-title">出错啦</div>
     <p>
-        ${error.cause.cause}<br/>
+        ${error.cause.cause!}<br/>
 		<#list error.stackTrace as trace>
 		    ${trace.className}${trace.lineNumber}<br>
 		</#list>
@@ -13,8 +19,5 @@
 </div>
 </#macro>
 
-<#macro overrideScript>
-</#macro>
-
-<@layout style=overrideStyle content=overrideContent script=overrideScript>
+<@layout title=overrideTitle style=defaultStyle content=overrideContent script=defaultScript>
 </@layout>

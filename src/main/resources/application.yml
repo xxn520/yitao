@@ -3,10 +3,10 @@ app:
     - ROLE_USER
     - ROLE_ADMIN
   properties:
-    name: 益购
-    metaKeywords: 益购,CMS,JAVA
-    metaDescription: 益购介绍
-    copyright: "©2016 杭州益购信息科技有限公司"
+    name: 益淘
+    metaKeywords: 益淘,CMS,JAVA
+    metaDescription: 益淘介绍
+    copyright: "©2016 杭州益淘信息科技有限公司"
     phone: 13588204615
     email: 2844870322@qq.com
 spring:
@@ -24,7 +24,7 @@ spring:
       order: 3
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://db/yigou?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://db/yitao?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
     type: com.zaxxer.hikari.HikariDataSource
     username: root
     password: 
@@ -37,9 +37,9 @@ spring:
       hibernate.cache.use_query_cache: true
       hibernate.cache.auto_evict_collection_cache: true
       hibernate.cache.use_reference_entries: true
-      hibernate.physical_naming_strategy: com.yigou.core.hibernate.HibernatePhysicalNamingStrategy
+      hibernate.physical_naming_strategy: com.yitao.core.hibernate.HibernatePhysicalNamingStrategy
       hibernate.search.default.directory_provider: filesystem
-      hibernate.search.default.indexBase: /mnt/java/cms/lucene
+      hibernate.search.default.indexBase: /mnt/java/yitao/lucene
       javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
   data:
     jpa:
@@ -59,7 +59,7 @@ spring:
     init:
       jersey.config.server.mvc.caching.freemarker: false
   datasource:
-    url: jdbc:mysql://127.0.0.1/yigou?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1/yitao?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 
   jpa:
@@ -73,7 +73,7 @@ spring:
   profiles: test
   datasource:
     driver-class-name: org.hsqldb.jdbcDriver
-    url: jdbc:hsqldb:mem:cms
+    url: jdbc:hsqldb:mem:yitao
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
     database: HSQL

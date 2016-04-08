@@ -1,6 +1,7 @@
 <#include "layout.ftl">
 
-<#macro overrideStyle>
+<#macro overrideTitle>
+    没有权限 -
 </#macro>
 
 <#macro overrideContent>
@@ -15,8 +16,5 @@
 </div>
 </#macro>
 
-<#macro overrideScript>
-</#macro>
-
-<@layout style=overrideStyle content=overrideContent script=overrideScript>
+<@layout title=overrideTitle style=defaultStyle content=overrideContent script=defaultScript>
 </@layout>
