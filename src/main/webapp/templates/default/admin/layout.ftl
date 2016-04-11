@@ -102,17 +102,29 @@
 					<nav class="main-navigation">
 						<ul>
 							<li class="<@loc "/admin/index.html" "${location}"/>">
-							<a href="${contextPath}/admin/index.html"> <i
-									class="fa fa-home"></i> <span>首页</span>
-							</a></li>
+								<a href="${contextPath}/admin/index.html">
+									<i class="fa fa-home"></i>
+									<span>首页</span>
+								</a>
+							</li>
+                            <li class="<@loc "/admin/user.html" "${location}"/>">
+                                <a href="${contextPath}/admin/feedback.html">
+                                    <i class="fa fa-user"></i>
+                                    <span>意见反馈</span>
+                                </a>
+                            </li>
 							<li class="<@loc "/admin/user.html" "${location}"/>">
-								<a href="${contextPath}/admin/user.html"> <i class="fa fa-user"></i> <span>用户</span>
-							</a></li>
+								<a href="${contextPath}/admin/user.html">
+									<i class="fa fa-user"></i>
+									<span>用户</span>
+								</a>
+							</li>
 							<li class="<@loc "/admin/user-group.html" "${location}"/>">
 								<a href="${contextPath}/admin/user-group.html"> <i class="fa fa-users"></i> <span>用户组</span>
 							</a></li>
 							<li class="<@loc "/admin/setting.html" "${location}"/>">
-								<a href="${contextPath}/admin/setting.html"> <i class="fa fa-gears"></i>
+								<a href="${contextPath}/admin/setting.html">
+									<i class="fa fa-gears"></i>
 									<span>设置</span>
 								</a>
 							</li>
