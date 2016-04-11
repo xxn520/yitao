@@ -14,7 +14,6 @@ import java.util.List;
  * Created by m2mbob on 16/4/11.
  */
 @Entity
-@Cacheable
 public class Discount extends BaseModel{
 
     @Column(scale=2)

@@ -15,8 +15,8 @@ public class Brand extends BaseModel {
     private String name;
     @FormParam("coverPhoto")
     private String coverPhoto;
-    @FormParam("order")
-    private int order;  //排序
+    @FormParam("sort")
+    private int sort;  //排序
 
     public String getName() {
         return name;
@@ -34,11 +34,11 @@ public class Brand extends BaseModel {
         this.coverPhoto = coverPhoto;
     }
 
-    public int getOrder() {
-        return order;
+    public int getSort() {
+        return sort;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 }

@@ -109,7 +109,7 @@
 							</li>
                             <li class="<@loc "/admin/user.html" "${location}"/>">
                                 <a href="${contextPath}/admin/feedback.html">
-                                    <i class="fa fa-user"></i>
+                                    <i class="fa fa-commenting-o"></i>
                                     <span>意见反馈</span>
                                 </a>
                             </li>

@@ -72,7 +72,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#if (model.content?size>0)>
+                        <#if (model.content)??&&(model.content?size>0)>
                         <#list model.content as model>
                             <tr>
                                 <td class="user-name form-inline">${model.username}</td>
@@ -196,8 +196,8 @@ $(document).ready(function() {
     });
 
     $('.pagination').twbsPagination({
-        totalPages : ${model.totalPages},
-        startPage: ${model.number} + 1,
+        totalPages : ${model.totalPages!},
+        startPage: ${model.number!} + 1,
         initiateStartPageClick: false,
         first: "«",
         prev: "‹",
