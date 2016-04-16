@@ -19,7 +19,7 @@ import javax.ws.rs.PathParam;
 @Controller
 @Path(Constants.ADMIN_PATH + "announcement")
 @RolesAllowed("ROLE_ADMIN")
-public class AnnouncementController extends AbstractCrudController<AnnouncementRepository, AnnouncementParams, Announcement, Long>{
+public class AnnouncementAdminController extends AbstractCrudController<AnnouncementRepository, AnnouncementParams, Announcement, Long>{
 
     /* (non-Javadoc)
 	 * @see com.yunpeng.core.service.AbstractCrudController#destroy(java.io.Serializable)

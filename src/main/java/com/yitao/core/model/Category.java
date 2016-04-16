@@ -17,16 +17,16 @@ public class Category extends BaseModel{
     @FormParam("name")
     @Field(analyzer = @org.hibernate.search.annotations.Analyzer(impl = SmartChineseAnalyzer.class) )
     private String name;
-    @FormParam("cover")
-    private String cover;
+    @FormParam("coverPhoto")
+    private String coverPhoto;
 
     public Category() {
         super();
     }
 
-    public Category(String name, String cover) {
+    public Category(String name, String coverPhoto) {
         this.name = name;
-        this.cover = cover;
+        this.coverPhoto = coverPhoto;
     }
 
     public String getName() {
@@ -37,11 +37,11 @@ public class Category extends BaseModel{
         this.name = name;
     }
 
-    public String getCover() {
-        return cover;
+    public String getCoverPhoto() {
+        return coverPhoto;
     }
 
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setCoverPhoto(String coverPhoto) {
+        this.coverPhoto = coverPhoto;
     }
 }

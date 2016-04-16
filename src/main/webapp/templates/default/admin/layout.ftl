@@ -107,6 +107,12 @@
 									<span>首页</span>
 								</a>
 							</li>
+                            <li class="<@loc "/admin/category.html" "${location}"/>">
+                                <a href="${contextPath}/admin/category.html">
+                                    <i class="fa fa-tasks"></i>
+                                    <span>分类管理</span>
+                                </a>
+                            </li>
                             <li class="<@loc "/admin/brand.html" "${location}"/>">
                                 <a href="${contextPath}/admin/brand.html">
                                     <i class="fa fa-cube"></i>

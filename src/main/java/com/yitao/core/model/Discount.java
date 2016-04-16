@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -13,15 +14,20 @@ import java.util.List;
  * Created by m2mbob on 16/4/11.
  */
 @Entity
+@Cacheable
 public class Discount extends BaseModel{
 
+    @FormParam("discount")
     @Column(scale=2)
     private BigDecimal discount;//折扣后价格
+    @FormParam("startDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;//开始时间
+    @FormParam("endDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;//结束时间
     private boolean flag;//是否过期
+    @FormParam("introduction")
     @Column(length=1000)
     private String introduction;//折扣描述
     @OneToMany(mappedBy = "discount")

@@ -141,7 +141,7 @@ $(document).ready(function() {
                         }
                     } else {
                         toastr.error("无法删除该用户。", undefined, {
-                            positionClass: "toast-top-center"
+                            positionClass: "toast-top-right"
                         });
                     }
                 });

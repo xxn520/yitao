@@ -7,6 +7,7 @@ import javax.ws.rs.FormParam;
  * Created by m2mbob on 16/4/11.
  */
 @Entity
+@Cacheable
 public class Announcement extends BaseModel{
 
     @FormParam("title")

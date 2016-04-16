@@ -19,7 +19,7 @@ import javax.ws.rs.PathParam;
 @Controller
 @Path(Constants.ADMIN_PATH + "brand")
 @RolesAllowed("ROLE_ADMIN")
-public class BrandController extends AbstractCrudController<BrandRepository, BrandParams, Brand, Long>{
+public class BrandAdminController extends AbstractCrudController<BrandRepository, BrandParams, Brand, Long>{
 
     /* (non-Javadoc)
 	 * @see com.yunpeng.core.service.AbstractCrudController#destroy(java.io.Serializable)
