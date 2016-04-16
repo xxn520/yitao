@@ -12,20 +12,20 @@ public class Feedback extends BaseModel{
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @FormParam("content")
-    private String content;
+    @FormParam("detail")
+    private String detail;
     @FormParam("contact")
     private String contact;
     @FormParam("handled")
     @DefaultValue("false")
     private boolean handled;
 
-    public String getContent() {
-        return content;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public String getContact() {

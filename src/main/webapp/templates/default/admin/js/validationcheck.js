@@ -111,6 +111,7 @@
 //               };
                
                Validator.prototype.start = function(dom){
+                   var flag=true;
             	   for(var i = 0,validatorFunc;validatorFunc = this.cache[i++];){
                        var msg = validatorFunc();
                        if(dom){
@@ -125,7 +126,6 @@
                         	   msg.dom.removeClass("form-cerror");
                            }
                        }else{
-                    	   var flag=true;
                            if(msg.errorMsg){
                         	   msg.dom.nextAll('.error-information').text(msg.errorMsg).show();
                         	   msg.dom.addClass("form-cerror");

@@ -107,6 +107,12 @@
 									<span>首页</span>
 								</a>
 							</li>
+                            <li class="<@loc "/admin/message.html" "${location}"/>">
+                                <a href="${contextPath}/admin/message.html">
+                                    <i class="fa  fa-comments"></i>
+                                    <span>消息管理</span>
+                                </a>
+                            </li>
                             <li class="<@loc "/admin/user.html" "${location}"/>">
                                 <a href="${contextPath}/admin/feedback.html">
                                     <i class="fa fa-commenting-o"></i>
@@ -189,5 +195,28 @@
 		src="${contextPath}/templates/default/admin/js/validationcheck.js"></script>
 	<script type="text/javascript"
 		src="${contextPath}/templates/default/admin/js/toastr.min.js"></script>
+	<#if (model.totalPages)??>
+    <script type="text/javascript" src="${contextPath}/templates/default/admin/js/jquery.twbsPagination.min.js"></script>
+    <script>
+		$('.pagination').twbsPagination({
+				totalPages : ${model.totalPages!},
+				startPage: ${model.number!} + 1,
+				initiateStartPageClick: false,
+				first: "«",
+				prev: "‹",
+				next: "›",
+				last: "»",
+			onPageClick : function(event, page) {
+				var href = location.search;
+				if(href!=""){
+					href = href.indexOf("page=") > 0 ? href.replace(/page=[\d]+/, "page=" + (page - 1)) : href + "&page=" + (page - 1);
+				}else{
+					href = location.href + "?page=" + (page - 1);
+				}
+				location.href = href;
+			}
+		});
+    </script>
+	</#if>
 	<@script />
 </#macro>

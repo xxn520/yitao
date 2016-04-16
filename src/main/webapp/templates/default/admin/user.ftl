@@ -72,7 +72,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#if (model.content)??&&(model.content?size>0)>
+                        <#if (model.content?size)??&&(model.content?size>0)>
                         <#list model.content as model>
                             <tr>
                                 <td class="user-name form-inline">${model.username}</td>
@@ -114,50 +114,49 @@
 
 <#macro overrideScript>
 <script type="text/javascript" src="${contextPath}/templates/default/admin/js/select2.min.js"></script>
-<script type="text/javascript" src="${contextPath}/templates/default/admin/js/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     var $btn;
     $(document).ajaxError(function() {
-                toastr.error('出错了哟', undefined, {
-                    positionClass: "toast-top-center"
-                });
-                $btn.button('reset');
-            })
-            .on("click", "button.fa-remove", function() {
-                var tbody = $(this).parents("tbody");
-                var tr = $(this).parents("tr");
-                var idField = tr.find(".user-id");
-                if (idField.length) {
-                    $btn = $(this).button('loading');
-                    var url = "${contextPath}/admin/user/" + idField.val() + ".json?_method=DELETE";
-                    var confirmed = confirm("你确定要删除吗？");
-                    if (confirmed) {
-                        $.post(url, function(data) {
-                            $btn.button('reset');
-                            if (data > 0) {
-                                tr.remove();
-                                if (tbody.find("tr").length == 2) {
-                                    $(".empty-row").show();
-                                }
-                            } else {
-                                toastr.error("无法删除该用户。", undefined, {
-                                    positionClass: "toast-top-center"
-                                });
-                            }
-                        });
-                    } else {
-                        $btn.button('reset');
-                    }
-                } else {
+        toastr.error('出错了哟', undefined, {
+            positionClass: "toast-top-right"
+        });
+        $btn.button('reset');
+    })
+    .on("click", "button.fa-remove", function() {
+        var tbody = $(this).parents("tbody");
+        var tr = $(this).parents("tr");
+        var idField = tr.find(".user-id");
+        if (idField.length) {
+            $btn = $(this).button('loading');
+            var url = "${contextPath}/admin/user/" + idField.val() + ".json?_method=DELETE";
+            var confirmed = confirm("你确定要删除吗？");
+            if (confirmed) {
+                $.post(url, function(data) {
                     $btn.button('reset');
-                    tr.remove();
-                    if (tbody.find("tr").length == 2) {
-                        $(".empty-row").show();
+                    if (data > 0) {
+                        tr.remove();
+                        if (tbody.find("tr").length == 2) {
+                            $(".empty-row").show();
+                        }
+                    } else {
+                        toastr.error("无法删除该用户。", undefined, {
+                            positionClass: "toast-top-center"
+                        });
                     }
-                }
+                });
+            } else {
+                $btn.button('reset');
+            }
+        } else {
+            $btn.button('reset');
+            tr.remove();
+            if (tbody.find("tr").length == 2) {
+                $(".empty-row").show();
+            }
+        }
 
-            });
+    });
 
     $("select").select2({
         ajax: {
@@ -195,24 +194,6 @@ $(document).ready(function() {
         location.href = "${contextPath}/admin/user/" + id + ".html";
     });
 
-    $('.pagination').twbsPagination({
-        totalPages : ${model.totalPages!},
-        startPage: ${model.number!} + 1,
-        initiateStartPageClick: false,
-        first: "«",
-        prev: "‹",
-        next: "›",
-        last: "»",
-        onPageClick : function(event, page) {
-            var href = location.search;
-            if(href!=""){
-                href = href.indexOf("page=") > 0 ? href.replace(/page=[\d]+/, "page=" + (page - 1)) : href + "&page=" + (page - 1);
-            }else{
-                href = location.href + "?page=" + (page - 1);
-            }
-            location.href = href;
-        }
-    });
 });
 </script>
 </#macro>

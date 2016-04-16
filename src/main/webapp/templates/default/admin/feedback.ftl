@@ -42,8 +42,8 @@
             <div class="panel-heading">
                 <form class="form-inline" role="form" method="get" action="${contextPath}/admin/feedback.html">
                     <div class="form-group">
-                        <label for="content">反馈内容: </label>
-                        <input class="form-control" id="content" name="content" placeholder="反馈内容: 输入*模糊匹配" type="text" value="${request.getParameter("content")!}">
+                        <label for="detail">反馈内容: </label>
+                        <input class="form-control" id="detail" name="detail" placeholder="反馈内容: 输入*模糊匹配" type="text" value="${request.getParameter("detail")!}">
                     </div>
                     &nbsp;
                     <div class="form-group">
@@ -71,15 +71,15 @@
                             <th>反馈内容</th>
                             <th>联系方式</th>
                             <th>是否处理</th>
-                            <th width="10%">操作</th>
+                            <th width="20%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <#if (model.content)??&&(model.content?size>0)>
+                            <#if (model.content?size)??&&(model.content?size>0)>
                                 <#list model.content as model>
                                 <tr>
                                     <td class="user-name form-inline">${model.createdBy.username}</td>
-                                    <td>${model.content!}</td>
+                                    <td>${model.detail!}</td>
                                     <td>${model.contact!}</td>
                                     <td>
                                         <#if model.handled>
@@ -120,7 +120,6 @@
 
 <#macro overrideScript>
 <script type="text/javascript" src="${contextPath}/templates/default/admin/js/select2.min.js"></script>
-<script type="text/javascript" src="${contextPath}/templates/default/admin/js/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         var $btn;
