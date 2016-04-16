@@ -1,11 +1,10 @@
 package com.yitao.core.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +27,7 @@ public class Discount extends BaseModel{
     @OneToMany(mappedBy = "discount")
     @OrderBy("createdDate desc")
     @JsonManagedReference
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<Product> products;
 
     public BigDecimal getDiscount() {

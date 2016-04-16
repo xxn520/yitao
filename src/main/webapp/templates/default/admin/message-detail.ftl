@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">内容</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="detail" id="detail" type="text" placeholder="请输入内容" value="">${(model.detail)!}</textarea>
+                            <textarea class="form-control" name="detail" id="detail" type="text" placeholder="请输入内容" rows="10">${(model.detail)!}</textarea>
                             <label class="error-information"></label>
                         </div>
                     </div>

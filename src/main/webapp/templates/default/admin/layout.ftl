@@ -113,6 +113,12 @@
                                     <span>消息管理</span>
                                 </a>
                             </li>
+                            <li class="<@loc "/admin/announcement.html" "${location}"/>">
+                                <a href="${contextPath}/admin/announcement.html">
+                                    <i class="fa fa-rss"></i>
+                                    <span>公告管理</span>
+                                </a>
+                            </li>
                             <li class="<@loc "/admin/user.html" "${location}"/>">
                                 <a href="${contextPath}/admin/feedback.html">
                                     <i class="fa fa-commenting-o"></i>

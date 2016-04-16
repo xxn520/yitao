@@ -13,8 +13,10 @@ public class Announcement extends BaseModel{
     private String title;
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @FormParam("content")
-    private String content;
+    @FormParam("detail")
+    private String detail;
+    @FormParam("contact")
+    private String contact;
 
     public String getTitle() {
         return title;
@@ -24,12 +26,19 @@ public class Announcement extends BaseModel{
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 }
