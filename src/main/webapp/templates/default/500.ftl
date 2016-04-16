@@ -9,7 +9,7 @@
     <div class="error-code"><b>500</b></div>
     <div class="mg-b-lg error-title">出错啦</div>
     <p>
-        ${(error.cause.cause)!}<br/>
+        ${(error.cause)!}<br/>
 		<#list error.stackTrace as trace>
 		    ${trace.className}${trace.lineNumber}<br>
 		</#list>

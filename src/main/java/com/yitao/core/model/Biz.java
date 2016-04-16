@@ -2,6 +2,7 @@ package com.yitao.core.model;
 
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Latitude;
 import org.hibernate.search.annotations.Longitude;
 
@@ -13,6 +14,7 @@ import javax.ws.rs.FormParam;
  * Created by m2mbob on 16/4/11.
  */
 @Entity
+@Indexed
 @Cacheable
 public class Biz extends BaseModel{
 

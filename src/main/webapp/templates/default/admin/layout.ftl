@@ -107,6 +107,24 @@
 									<span>首页</span>
 								</a>
 							</li>
+                            <li class="<@loc "/admin/biz.html" "${location}"/>">
+                                <a href="${contextPath}/admin/biz.html">
+                                    <i class="fa fa-codepen"></i>
+                                    <span>商家管理</span>
+                                </a>
+                            </li>
+                            <li class="<@loc "/admin/product.html" "${location}"/>">
+                                <a href="${contextPath}/admin/product.html">
+                                    <i class="fa fa-gift"></i>
+                                    <span>商品管理</span>
+                                </a>
+                            </li>
+                            <li class="<@loc "/admin/discount.html" "${location}"/>">
+                                <a href="${contextPath}/admin/discount.html">
+                                    <i class="fa fa-level-down"></i>
+                                    <span>折扣管理</span>
+                                </a>
+                            </li>
                             <li class="<@loc "/admin/category.html" "${location}"/>">
                                 <a href="${contextPath}/admin/category.html">
                                     <i class="fa fa-tasks"></i>
