@@ -9,11 +9,15 @@ import com.yitao.core.model.Account;
 import com.yitao.core.model.SystemVariable;
 import com.yitao.core.model.User;
 import com.yitao.core.model.UserGroup;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +49,9 @@ public class SystemInitializer extends YitaoInitializer {
     @Inject
     private AppProperties appProperties;
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Override
     @Transactional
     protected void doInit() {
@@ -70,6 +77,13 @@ public class SystemInitializer extends YitaoInitializer {
             }
             list = this.variableRepository.save(list);
             this.variablesHolder.post();
+        }
+        // 创建索引
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        try {
+            fullTextEntityManager.createIndexer().startAndWait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

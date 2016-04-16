@@ -142,7 +142,7 @@
 </#macro>
 
 <#macro overrideScript>
-<script type="text/javascript" src="${contextPath}/templates/default/admin/js/select2.min.js"></script>
+
 <script type="text/javascript" src="${contextPath}/templates/default/admin/js/dropzone.min.js"></script>
 <script type="text/javascript" src="${contextPath}/templates/default/admin/js/switchery/switchery.js"></script>
 <script type="text/javascript">
