@@ -56,7 +56,7 @@
 <div class="row">
     <div class="col-md-12">
         <section class="panel">
-            <header class="panel-heading">填写用户组信息</header>
+
             <div class="panel-body">
                 <form class="form-horizontal" action="../user-group<#if model??>/${model.id}</#if>.html<#if model??>?_method=PUT</#if>" method="post">
                     <#if model??>

@@ -107,6 +107,12 @@
 									<span>首页</span>
 								</a>
 							</li>
+                            <li class="<@loc "/admin/brand.html" "${location}"/>">
+                                <a href="${contextPath}/admin/brand.html">
+                                    <i class="fa fa-cube"></i>
+                                    <span>品牌推广</span>
+                                </a>
+                            </li>
                             <li class="<@loc "/admin/message.html" "${location}"/>">
                                 <a href="${contextPath}/admin/message.html">
                                     <i class="fa  fa-comments"></i>

@@ -68,7 +68,7 @@
                             <th>电话号码</th>
                             <th>邮箱地址</th>
                             <th>用户组</th>
-                            <th width="10%">操作</th>
+                            <th width="20%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
