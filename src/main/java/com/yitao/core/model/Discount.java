@@ -1,14 +1,9 @@
 package com.yitao.core.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by m2mbob on 16/4/11.
@@ -30,11 +25,6 @@ public class Discount extends BaseModel{
     @FormParam("introduction")
     @Column(length=1000)
     private String introduction;//折扣描述
-    @OneToMany(mappedBy = "discount")
-    @OrderBy("createdDate desc")
-    @JsonManagedReference
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private List<Product> products;
 
     public BigDecimal getDiscount() {
         return discount;
@@ -76,11 +66,4 @@ public class Discount extends BaseModel{
         this.introduction = introduction;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 }

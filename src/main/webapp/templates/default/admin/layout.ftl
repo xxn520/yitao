@@ -119,12 +119,6 @@
                                     <span>商品管理</span>
                                 </a>
                             </li>
-                            <li class="<@loc "/admin/discount.html" "${location}"/>">
-                                <a href="${contextPath}/admin/discount.html">
-                                    <i class="fa fa-level-down"></i>
-                                    <span>折扣管理</span>
-                                </a>
-                            </li>
                             <li class="<@loc "/admin/category.html" "${location}"/>">
                                 <a href="${contextPath}/admin/category.html">
                                     <i class="fa fa-tasks"></i>

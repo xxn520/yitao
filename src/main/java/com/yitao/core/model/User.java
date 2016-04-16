@@ -6,11 +6,9 @@ package com.yitao.core.model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.ws.rs.FormParam;
+import java.util.List;
 
 /**
  * @author iDay
@@ -40,6 +38,9 @@ public class User extends BaseModel {
 	private boolean locked;
 	@FormParam("enabled")
 	private boolean enabled;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private List<Product> products;
 
 	/**
 	 * 
@@ -195,5 +196,13 @@ public class User extends BaseModel {
 	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

@@ -53,7 +53,7 @@
                         <label for="group_id">父分类: </label>
                         <select class="form-control" id="parent_id" name="parent_id" data-placeholder="父分类" style="width:120px">
                             <#if model.model??>
-                                <option value="${model.parent.id}" selected>${model.parent.name}</option>
+                                <option value="${model.model.id}" selected>${model.model.name}</option>
                             </#if>
                         </select>
                     </div>

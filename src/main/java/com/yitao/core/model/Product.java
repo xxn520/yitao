@@ -41,7 +41,7 @@ public class Product extends BaseModel{
     private Set<Category> categories;
     @ManyToOne
     private Biz biz;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Discount discount;
 
     public String getName() {
