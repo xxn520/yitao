@@ -35,6 +35,13 @@ public class Biz extends BaseModel{
     @FormParam("coverPhoto")
     private String coverPhoto;// 封面照片
 
+    public Biz() {
+    }
+
+    public Biz(Long id) {
+        super(id);
+    }
+
     public String getName() {
         return name;
     }

@@ -30,6 +30,7 @@ public class Product extends BaseModel{
     @FormParam("coverPhoto")
     private String coverPhoto;                          // 封面照片
     @FormParam("price")
+    @Column(scale = 2)
     private BigDecimal price;
     @FormParam("health")
     private boolean heath;

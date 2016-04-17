@@ -11,12 +11,11 @@ import com.yitao.core.vo.ProductParams;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.ws.rs.BeanParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -40,5 +39,14 @@ public class ProductAdminController extends AbstractCrudController<ProductRepsos
             page = new PageImpl<>(page, pageParams, this.bizRepository.findOne(bizId));
         }
         return page;
+    }
+
+    @Override
+    @DELETE
+    @Path("{id:\\d+}")
+    @Transactional
+    public Long destroy(@PathParam("id") Long id) {
+        this.repository.delete(id);;
+        return 1L;
     }
 }

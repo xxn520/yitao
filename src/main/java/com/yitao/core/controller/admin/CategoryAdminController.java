@@ -42,7 +42,15 @@ public class CategoryAdminController extends AbstractCrudController<CategoryRepo
     @Path("/parent")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Page<Category> find(@BeanParam PageParams pageParams) {
+    public Page<Category> parent(@BeanParam PageParams pageParams) {
         return this.repository.findByParentIsNull(pageParams);
     }
+
+    @Path("/children")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Page<Category> children(@BeanParam PageParams pageParams) {
+        return this.repository.findByParentIsNotNull(pageParams);
+    }
+
 }

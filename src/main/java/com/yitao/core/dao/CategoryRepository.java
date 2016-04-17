@@ -15,4 +15,6 @@ public interface CategoryRepository extends HibernateBasedRepository<Category, L
     @QueryHints(value = @QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"), forCounting = true)
     Page<Category> findByParentIsNull(Pageable pageable);
 
+    @QueryHints(value = @QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"), forCounting = true)
+    Page<Category> findByParentIsNotNull(Pageable pageable);
 }

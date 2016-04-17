@@ -63,8 +63,18 @@
                     	   errorMsg='';
                        }
                        return {dom:dom,errorMsg:errorMsg};
-                   }, 
-                 
+                   },
+                   //是否两位小数正整数价格
+                   isPrice: function(dom,errorMsg) {
+                       var reg = /^\d+(?:\.\d{1,2})?$/;
+                       if(dom.val() ==''){
+                           errorMsg='价格不能为空!';
+                       }
+                       if(reg.test(dom.val())){
+                           errorMsg='';
+                       }
+                       return {dom:dom,errorMsg:errorMsg};
+                   }
                };
                
                var Validator = function(){

@@ -11,7 +11,7 @@ public abstract class Constants {
 	
 	public static final String ADMIN_PATH = "/admin/";
 	public static final String ROOT_PATH = "/";
-	public static final String SAVE_PATH = "/Users/m2mbob/Documents/workspaces/yigou/src/main/webapp/upload";
+	public static final String SAVE_PATH = "/Users/m2mbob/Documents/workspaces/yitao/src/main/webapp/upload";
 	public static final String FILE_URL_PREFIX = "/upload/";
 
 	public static final String ERROR_MESSAGE_KEY = "errorMessage";

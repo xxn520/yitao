@@ -1,11 +1,11 @@
 <#include "layout.ftl">
 
 <#macro overrideTitle>
-	<#if model??>
-	    编辑用户 -
-	<#else>
-		添加用户 -
-	</#if>
+    <#if model??>
+    编辑商品 -
+    <#else>
+    添加商品 -
+    </#if>
 </#macro>
 
 <#macro overrideStyle>
@@ -44,88 +44,95 @@
 <div class="row mg-b">
     <div class="col-xs-12">
         <h3 class="no-margin">
-			<#if model??>
-				编辑用户
-			<#else>
-				添加用户
-			</#if>
-		</h3>
+            <#if model??>
+                编辑商品
+            <#else>
+                添加商品
+            </#if>
+        </h3>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <section class="panel">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="javascript:void(0)">用户信息</a></li>
-                <li><a href="${contextPath}/admin/account.html?uid=${(model.id)!}">登录信息</a></li>
+                <li class="active"><a href="javascript:void(0)">商品信息</a></li>
+                <#if (model.id)??>
+                    <li><a href="${contextPath}/admin/product/discount.html?product_id=${(model.id)!}">折扣信息</a></li>
+                </#if>
             </ul>
             <div class="panel-body">
-                <form class="form-horizontal" action="../user<#if model??>/${model.id!}</#if>.html<#if model??>?_method=PUT</#if>" method="post">
+                <form class="form-horizontal" action="../product<#if model??>/${model.id!}</#if>.html<#if model??>?_method=PUT</#if>" method="post">
                     <#if model??>
                         <input type="hidden" name="id" value="${(model.id)!}">
                     </#if>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户名</label>
+                        <label class="col-sm-2 control-label">商品名</label>
                         <div class="col-sm-10">
-                            <input class="form-control" name="username" type="text" placeholder="请输入标题"  value="${(model.username)!}">
+                            <input class="form-control" name="name" id="name" type="text" placeholder="请输入商品名"  value="${(model.name)!}">
                             <label class="error-information"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">用户组</label>
+                        <label class="col-sm-2 control-label">商家</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="group" id="group" data-placeholder="请选择用户组"  style="width: 100%">
-                                <option value="${(model.group.id)!}">${(model.group.name)!}</option>
+                            <select class="form-control" name="biz_id" id="biz_id" data-placeholder="请选择商家"  style="width: 100%">
+                                <option value="${(model.biz.id)!}">${(model.biz.name)!}</option>
                             </select>
                             <label class="error-information"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">头像</label>
+                        <label class="col-sm-2 control-label">商品介绍</label>
                         <div class="col-sm-10">
-                            <div class="upload dropzone <#if (model.avatar)??>dz-started</#if>" id="upload">
-								<#if (model.avatar)??>
-                                <div
-                                        class="dz-preview dz-processing dz-success dz-complete dz-image-preview">
-                                    <div class="dz-image">
-                                        <img src="${(model.avatar)!}">
-                                    </div>
-                                    <div class="dz-details">
-                                        <div class="dz-filename">
-                                            <span data-dz-name="">${(model.avatar)!}</span>
+                            <textarea class="form-control" name="introduce" id="introduce" type="text" placeholder="请输入商品介绍" rows="10">${(model.introduce)!}</textarea>
+                            <label class="error-information"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">封面图</label>
+                        <div class="col-sm-10">
+                            <div class="upload dropzone <#if (model.coverPhoto)??>dz-started</#if>" id="upload">
+                                <#if (model.coverPhoto)??>
+                                    <div class="dz-preview dz-processing dz-success dz-complete dz-image-preview">
+                                        <div class="dz-image">
+                                            <img src="${(model.coverPhoto)!}">
                                         </div>
+                                        <div class="dz-details">
+                                            <div class="dz-filename">
+                                                <span data-dz-name="">${(model.coverPhoto)!}</span>
+                                            </div>
+                                        </div>
+                                        <a class="dz-remove" href="javascript:undefined;" data-dz-remove="">删除文件</a>
+                                        <input type="hidden" name="coverPhoto" value="${(model.coverPhoto)!}">
                                     </div>
-                                    <a class="dz-remove" href="javascript:undefined;" data-dz-remove="">删除文件</a>
-                                    <input type="hidden" name="avatar" value="${(model.avatar)!}">
-                                </div>
-								</#if>
+                                </#if>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">电话</label>
+                        <label class="col-sm-2 control-label">价格</label>
                         <div class="col-sm-10">
-                            <input class="form-control" name="phone" type="text" placeholder="请输电话号码或手机号码" value="${(model.phone)!}">
+                            <input class="form-control" name="price" type="text" placeholder="请输入价格" value="${(model.price)!}">
                             <label class="error-information"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">邮件</label>
+                        <label class="col-sm-2 control-label">分类</label>
                         <div class="col-sm-10">
-                            <input class="form-control" name="email" type="text" placeholder="请输入邮件地址" value="${(model.email)!}">
-                            <label class="error-information"></label>
+                            <select class="form-control" name="categories" id="categories" data-placeholder="请选择分类" multiple="multiple" style="width: 100%">
+                                <#if (model.categories)??>
+                                <#list model.categories as category>
+                                <option value="${category.id}" selected="selected">${category.name}</option>
+                                </#list>
+                                </#if>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">激活</label>
+                        <label class="col-sm-2 control-label">是否健康</label>
                         <div class="col-sm-10">
-                            <input class="js-switch-green" type="checkbox" name="enabled" value="true"<#if (model.enabled)??&&(model.enabled)> checked</#if>/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">锁定</label>
-                        <div class="col-sm-10">
-                            <input type="checkbox" name="locked" value="true" class="js-switch-green" <#if (model.locked)??&&(model.locked)> checked</#if>/>
+                            <input class="js-switch-green" type="checkbox" name="health" value="true"<#if (model.health)??&&(model.health)> checked</#if>/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -148,11 +155,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".btn-reset").click(function() {
-            location.href = "${contextPath}/admin/user.html";
+            location.href = "${contextPath}/admin/product.html";
         });
-        $("select").select2({
+
+        $("#biz_id").select2({
             ajax: {
-                url: "${contextPath}/admin/user-group.json",
+                url: "${contextPath}/admin/biz.json",
                 cache: "true",
                 data: function (params) {
                     return {
@@ -175,6 +183,35 @@
                     }
                 }
             },
+            minimumResultsForSearch: Infinity
+        });
+
+        $("#categories").select2({
+            ajax: {
+                url: "${contextPath}/admin/category/children.json",
+                cache: true,
+                data: function (params) {
+                    return {
+                        page: params.page
+                    };
+                },
+                processResults: function(data) {
+                    var options = [];
+                    $(data.content).each(function() {
+                        options.push({
+                            id: this.id,
+                            text: this.name
+                        });
+                    });
+                    return {
+                        results: options,
+                        pagination: {
+                            more: !data.last
+                        }
+                    }
+                }
+            },
+            tags: true,
             minimumResultsForSearch: Infinity
         });
 
@@ -204,7 +241,7 @@
                     }
                     $(file.previewElement).removeClass("dz-file-preview").addClass("dz-image-preview").find("img").attr("src", data.url).attr("alt", data.file_name);
                     $(file.previewElement).find(".dz-filename>span").text(data.url);
-                    $(file.previewElement).append("<input type=\"hidden\" name=\"avatar\" value=\"" + data.url + "\">");
+                    $(file.previewElement).append("<input type=\"hidden\" name=\"coverPhoto\" value=\"" + data.url + "\">");
                 });
             }
         };
@@ -236,23 +273,23 @@
             });
         });
         //表单验证
-        var username = $("input[name='username']");
-        var group = $("select[name='group']");
-        var phone = $("input[name='phone']");
-        var email = $("input[name='email']");
+        var name = $("input[name='name']");
+        var biz_id = $("select[name='biz_id']");
+        var introduce = $("textarea[name='introduce']");
+        var price = $("input[name='price']");
         var validateFunc = function(dom){
             var validator = new Validator();
-            validator.add(username,[
-                {strategy:'isNotEmpty',errorMsg:'用户名不能为空!'},
+            validator.add(name,[
+                {strategy:'isNotEmpty',errorMsg:'商品名不能为空!'},
             ]);
-            validator.add(group,[
-                {strategy:'isNotEmpty',errorMsg:'用户组不能为空!'},
+            validator.add(introduce,[
+                {strategy:'isNotEmpty',errorMsg:'商品介绍不能为空!'},
             ]);
-            validator.add(phone,[
-                {strategy:'mobileFormat',errorMsg:'不是一个有效的号码格式!'}
+            validator.add(price,[
+                {strategy:'isPrice',errorMsg:'价格必须是正整数,最多两位小数!'}
             ]);
-            validator.add(email,[
-                {strategy:'isMail',errorMsg:'不是一个有效的邮箱地址!'}
+            validator.add(biz_id,[
+                {strategy:'isNotEmpty',errorMsg:'商品所属商家不能为空!'}
             ]);
             var error= validator.start(dom);
             return error;
@@ -262,9 +299,13 @@
             validateFunc(this);
         })
 
-        $("select[name='group']").on('select2:close', (function(){
+        $("select[name='biz_id']").on('select2:close', (function(){
             validateFunc(this);
         }))
+
+        $("textarea[name='introduce']").blur(function(){
+            validateFunc(this);
+        })
 
         $("form").submit(function(e) {
             var error = validateFunc();
@@ -281,14 +322,14 @@
 <#macro overrideNav>
 <ol class="breadcrumb no-margin">
     <li><a href="${contextPath}/admin/index.html">首页</a></li>
-    <li><a href="${contextPath}/admin/user.html">用户</a></li>
+    <li><a href="${contextPath}/admin/product.html">商品</a></li>
     <li class="active">
-		<#if model??>
-            编辑用户
-		<#else>
-            添加用户
-		</#if>
-	</li>
+        <#if model??>
+            编辑商品
+        <#else>
+            添加商品
+        </#if>
+    </li>
 </ol>
 </#macro>
 

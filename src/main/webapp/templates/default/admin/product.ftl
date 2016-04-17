@@ -65,10 +65,10 @@
                         <tr>
                             <th>商家名</th>
                             <th>商品名</th>
-                            <th width="20%">商品介绍</th>
+                            <th>商品介绍</th>
                             <th>封面图</th>
                             <th>原价</th>
-                            <th width="20%">操作</th>
+                            <th width="30%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,6 +84,7 @@
                                         <input type="hidden" name="id" class="product-id" value="${model.id}">
                                         <span class="action-normal">
                                             <button class="fa fa-edit btn btn-white"> 编辑</button>
+                                            <button class="fa fa-level-down btn btn-white"> 编辑折扣</button>
                                             <button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
                                         </span>
                                     </td>
@@ -158,7 +159,7 @@
 
         $("select").select2({
             ajax: {
-                url: "${contextPath}/admin/product-group.json",
+                url: "${contextPath}/admin/biz.json",
                 cache: "true",
                 data: function (params) {
                     return {
@@ -190,6 +191,11 @@
         $(".fa-edit").click(function() {
             var id = $(this).parents("tr").find("input:hidden").val();
             location.href = "${contextPath}/admin/product/" + id + ".html";
+        });
+
+        $(".fa-level-down").click(function() {
+            var id = $(this).parents("tr").find("input:hidden").val();
+            location.href = "${contextPath}/admin/product/discount.html?product_id=" + id;
         });
 
     });
