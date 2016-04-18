@@ -42,7 +42,7 @@ public class Product extends BaseModel{
     private Set<Category> categories;
     @ManyToOne
     private Biz biz;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Discount discount;
     @ManyToOne
     private Brand brand;

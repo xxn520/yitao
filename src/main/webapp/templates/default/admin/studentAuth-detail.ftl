@@ -111,7 +111,7 @@
 <#macro overrideNav>
 <ol class="breadcrumb no-margin">
     <li><a href="${contextPath}/admin/index.html">首页</a></li>
-    <li><a href="javascript:void(0)">认证</a></li>
+    <li><a href="${contextPath}/admin/user.html">用户</a></li>
     <li class="active">
         编辑认证
     </li>

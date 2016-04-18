@@ -41,7 +41,7 @@ public class User extends BaseModel {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private List<Product> products;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private StudentAuth studentAuth;
 
 	/**
