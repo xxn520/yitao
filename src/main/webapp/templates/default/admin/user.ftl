@@ -68,7 +68,7 @@
                             <th>电话号码</th>
                             <th>邮箱地址</th>
                             <th>用户组</th>
-                            <th width="20%">操作</th>
+                            <th width="25%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,8 +83,10 @@
                                     <td nowrap="nowrap">
                                         <#if model.id!=currentUser.id>
                                             <input type="hidden" name="id" class="user-id" value="${model.id}">
+                                            <input type="hidden" name="auth-id" class="auth-id" value="${(model.studentAuth.id)!}">
 									<span class="action-normal">
 										<button class="fa fa-edit btn btn-white"> 编辑</button>
+                                        <button class="fa fa-pencil btn btn-white"> 认证</button>
 										<button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
 									</span>
                                         </#if>
@@ -192,6 +194,11 @@
         $(".fa-edit").click(function() {
             var id = $(this).parents("tr").find("input:hidden").val();
             location.href = "${contextPath}/admin/user/" + id + ".html";
+        });
+
+        $(".fa-pencil").click(function() {
+            var auth = $(this).parents("tr").find("input[name='auth-id']").val();
+            location.href = "${contextPath}/admin/studentAuth/"+ auth + ".html";
         });
 
     });

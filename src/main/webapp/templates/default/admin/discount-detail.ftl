@@ -140,7 +140,7 @@
 <#macro overrideNav>
 <ol class="breadcrumb no-margin">
     <li><a href="${contextPath}/admin/index.html">首页</a></li>
-    <li><a href="${contextPath}/admin/discount.html">折扣</a></li>
+    <li><a href="${contextPath}/admin/product.html">商品</a></li>
     <li class="active">
         编辑折扣
     </li>

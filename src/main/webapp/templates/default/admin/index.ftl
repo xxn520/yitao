@@ -40,7 +40,7 @@
                     <i class="fa fa-gift"></i>
                 </div>
                 <div>
-                    <h3 class="no-margin">0</h3>
+                    <h3 class="no-margin">${products}</h3>
                     商品
                 </div>
             </a>

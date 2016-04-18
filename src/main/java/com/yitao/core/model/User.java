@@ -41,6 +41,8 @@ public class User extends BaseModel {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private List<Product> products;
+	@OneToOne(cascade = CascadeType.ALL)
+	private StudentAuth studentAuth;
 
 	/**
 	 * 
@@ -204,5 +206,13 @@ public class User extends BaseModel {
 
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	public StudentAuth getStudentAuth() {
+		return studentAuth;
+	}
+
+	public void setStudentAuth(StudentAuth studentAuth) {
+		this.studentAuth = studentAuth;
 	}
 }

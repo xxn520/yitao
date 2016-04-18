@@ -65,15 +65,19 @@
                             <label class="error-information"></label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">父分类</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="parent_id" id="parent_id" data-placeholder="请选择父分类"  style="width: 100%">
-                                <option value="${(model.parent.id)!}">${(model.parent.name)!}</option>
-                            </select>
-                            <label class="error-information"></label>
+                    <#if (request.getParameter("parent_id"))??>
+                        <input type="hidden" name="parent_id" value="${request.getParameter("parent_id")}">
+                    <#else>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">父分类</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="parent_id" id="parent_id" data-placeholder="请选择父分类"  style="width: 100%">
+                                    <option value="${(model.parent.id)!}">${(model.parent.name)!}</option>
+                                </select>
+                                <label class="error-information"></label>
+                            </div>
                         </div>
-                    </div>
+                    </#if>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">封面图</label>
                         <div class="col-sm-10">

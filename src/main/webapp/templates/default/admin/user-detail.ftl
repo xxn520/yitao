@@ -63,6 +63,7 @@
                 <form class="form-horizontal" action="../user<#if model??>/${model.id!}</#if>.html<#if model??>?_method=PUT</#if>" method="post">
                     <#if model??>
                         <input type="hidden" name="id" value="${(model.id)!}">
+                        <input type="hidden" name="studentAuth_id" value="${(model.studentAuth.id)!}">
                     </#if>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">用户名</label>

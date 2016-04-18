@@ -22,7 +22,9 @@ public class CategoryParams extends ModelParams<Category>{
 
     @Override
     public Category getModel() {
-        this.model.setParent(new Category(parent_id));
+        if(parent_id!=null){
+            this.model.setParent(new Category(parent_id));
+        }
         return super.getModel();
     }
 }
