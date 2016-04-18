@@ -18,6 +18,13 @@ public class Brand extends BaseModel {
     @FormParam("sort")
     private int sort;  //排序
 
+    public Brand() {
+    }
+
+    public Brand(Long id) {
+        super(id);
+    }
+
     public String getName() {
         return name;
     }

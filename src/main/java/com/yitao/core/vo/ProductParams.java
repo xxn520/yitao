@@ -1,9 +1,6 @@
 package com.yitao.core.vo;
 
-import com.yitao.core.model.Biz;
-import com.yitao.core.model.Category;
-import com.yitao.core.model.Discount;
-import com.yitao.core.model.Product;
+import com.yitao.core.model.*;
 
 import javax.ws.rs.FormParam;
 import java.util.HashSet;
@@ -18,6 +15,10 @@ public class ProductParams extends ModelParams<Product>{
     private Set<Long> categories;
     @FormParam("biz_id")
     private Long bizId;
+    @FormParam("brand_id")
+    private Long brandId;
+    @FormParam("discount_id")
+    private Long discountId;
 
     @Override
     public Product getModel() {
@@ -26,7 +27,12 @@ public class ProductParams extends ModelParams<Product>{
             this.model.getCategories().add(new Category(category));
         }
         this.model.setBiz(new Biz(bizId));
-        if(this.model.getId()==null){
+        if(brandId != null){
+            this.model.setBrand(new Brand(brandId));
+        }
+        if(this.discountId!=null){
+            this.model.setDiscount(new Discount(discountId));
+        }else{
             this.model.setDiscount(new Discount());
         }
         return this.model;

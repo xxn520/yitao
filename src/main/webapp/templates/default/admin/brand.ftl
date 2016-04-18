@@ -35,7 +35,7 @@
                             <th>品牌推广名</th>
                             <th>封面图</th>
                             <th>排序</th>
-                            <th width="20%">操作</th>
+                            <th width="25%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +49,7 @@
                                         <input type="hidden" name="id" class="brand-id" value="${model.id}">
                                         <span class="action-normal">
                                             <button class="fa fa-edit btn btn-white"> 编辑</button>
+                                            <button class="fa fa-list btn btn-white"> 查看商品</button>
                                             <button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
                                         </span>
                                     </td>
@@ -125,6 +126,10 @@
             location.href = "${contextPath}/admin/brand/" + id + ".html";
         });
 
+        $(".fa-list").click(function() {
+            var id = $(this).parents("tr").find("input:hidden").val();
+            location.href = "${contextPath}/admin/product.html?brand_id=" + id;
+        });
     });
 </script>
 </#macro>

@@ -58,13 +58,14 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="javascript:void(0)">商品信息</a></li>
                 <#if (model.id)??>
-                    <li><a href="${contextPath}/admin/product/discount.html?product_id=${(model.id)!}">折扣信息</a></li>
+                    <li><a href="${contextPath}/admin/discount/${(model.discount.id)!}.html?product_id=${(model.id)!}">折扣信息</a></li>
                 </#if>
             </ul>
             <div class="panel-body">
                 <form class="form-horizontal" action="../product<#if model??>/${model.id!}</#if>.html<#if model??>?_method=PUT</#if>" method="post">
                     <#if model??>
                         <input type="hidden" name="id" value="${(model.id)!}">
+                        <input type="hidden" name="discount_id" value="${(model.discount.id)!}">
                     </#if>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商品名</label>
@@ -130,6 +131,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">品牌</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="brand_id" id="brand_id" data-placeholder="请选择品牌"  style="width: 100%">
+                                <option value="${(model.brand.id)!}">${(model.brand.name)!}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">是否健康</label>
                         <div class="col-sm-10">
                             <input class="js-switch-green" type="checkbox" name="health" value="true"<#if (model.health)??&&(model.health)> checked</#if>/>
@@ -161,6 +170,34 @@
         $("#biz_id").select2({
             ajax: {
                 url: "${contextPath}/admin/biz.json",
+                cache: "true",
+                data: function (params) {
+                    return {
+                        page: params.page
+                    };
+                },
+                processResults: function(data) {
+                    var options = [];
+                    $(data.content).each(function() {
+                        options.push({
+                            id: this.id,
+                            text: this.name
+                        });
+                    });
+                    return {
+                        results: options,
+                        pagination: {
+                            more: !data.last
+                        }
+                    }
+                }
+            },
+            minimumResultsForSearch: Infinity
+        });
+
+        $("#brand_id").select2({
+            ajax: {
+                url: "${contextPath}/admin/brand.json",
                 cache: "true",
                 data: function (params) {
                     return {

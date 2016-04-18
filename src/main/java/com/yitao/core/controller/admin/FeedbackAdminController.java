@@ -21,9 +21,6 @@ import javax.ws.rs.PathParam;
 @RolesAllowed("ROLE_ADMIN")
 public class FeedbackAdminController extends AbstractCrudController<FeedbackRepository, FeedbackParams, Feedback, Long>{
 
-    /* (non-Javadoc)
-	 * @see com.yunpeng.core.service.AbstractCrudController#destroy(java.io.Serializable)
-	 */
     @Override
     @DELETE
     @Path("{id:\\d+}")

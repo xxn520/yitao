@@ -22,26 +22,26 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <section class="panel">
-            <a class="panel-body" href="${contextPath}/admin/article.html">
+            <a class="panel-body" href="${contextPath}/admin/biz.html">
                 <div class="circle-icon bg-primary">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-codepen"></i>
                 </div>
                 <div>
-                    <h3 class="no-margin">0</h3>
-                    文章
+                    <h3 class="no-margin">${bizs}</h3>
+                    商家
                 </div>
             </a>
         </section>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <section class="panel">
-            <a class="panel-body" href="${contextPath}/admin/menu.html">
+            <a class="panel-body" href="${contextPath}/admin/product.html">
                 <div class="circle-icon bg-success">
-                    <i class="fa fa-list"></i>
+                    <i class="fa fa-gift"></i>
                 </div>
                 <div>
                     <h3 class="no-margin">0</h3>
-                    菜单
+                    商品
                 </div>
             </a>
         </section>
@@ -53,7 +53,7 @@
                     <i class="fa fa-tasks"></i>
                 </div>
                 <div>
-                    <h3 class="no-margin">0</h3>
+                    <h3 class="no-margin">${categories}</h3>
                     分类
                 </div>
             </a>
@@ -61,26 +61,26 @@
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <section class="panel">
-            <a class="panel-body" href="${contextPath}/admin/module.html">
+            <a class="panel-body" href="${contextPath}/admin/brand.html">
                 <div class="circle-icon bg-info">
-                    <i class="fa fa-object-group"></i>
+                    <i class="fa fa-cube"></i>
                 </div>
                 <div>
-                    <h3 class="no-margin">0</h3>
-                    模块
+                    <h3 class="no-margin">${brands}</h3>
+                    品牌推广
                 </div>
             </a>
         </section>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <section class="panel">
-            <a class="panel-body" href="${contextPath}/admin/page.html">
+            <a class="panel-body" href="${contextPath}/admin/feedback.html">
                 <div class="circle-icon bg-warning">
-                    <i class="fa fa-file"></i>
+                    <i class="fa fa-commenting-o"></i>
                 </div>
                 <div>
-                    <h3 class="no-margin">0</h3>
-                    页面
+                    <h3 class="no-margin">${feedbacks}</h3>
+                    意见反馈
                 </div>
             </a>
         </section>

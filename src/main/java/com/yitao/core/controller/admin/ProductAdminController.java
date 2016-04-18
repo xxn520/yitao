@@ -49,4 +49,5 @@ public class ProductAdminController extends AbstractCrudController<ProductRepsos
         this.repository.delete(id);;
         return 1L;
     }
+
 }

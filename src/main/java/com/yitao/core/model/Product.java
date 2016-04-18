@@ -42,8 +42,10 @@ public class Product extends BaseModel{
     private Set<Category> categories;
     @ManyToOne
     private Biz biz;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Discount discount;
+    @ManyToOne
+    private Brand brand;
 
     public String getName() {
         return name;
@@ -115,5 +117,14 @@ public class Product extends BaseModel{
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
+    }
+
+    public Brand getBrand() {
+        
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

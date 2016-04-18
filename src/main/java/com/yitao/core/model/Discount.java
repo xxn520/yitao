@@ -9,22 +9,27 @@ import java.util.Date;
  * Created by m2mbob on 16/4/11.
  */
 @Entity
-@Cacheable
 public class Discount extends BaseModel{
 
     @FormParam("discount")
     @Column(scale=2)
     private BigDecimal discount;//折扣后价格
-    @FormParam("startDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;//开始时间
-    @FormParam("endDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;//结束时间
+    @FormParam("flag")
     private boolean flag;//是否过期
     @FormParam("introduction")
     @Column(length=1000)
     private String introduction;//折扣描述
+
+    public Discount() {
+    }
+
+    public Discount(Long id) {
+        super(id);
+    }
 
     public BigDecimal getDiscount() {
         return discount;

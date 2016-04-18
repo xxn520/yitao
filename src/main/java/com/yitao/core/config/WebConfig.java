@@ -13,7 +13,6 @@ import org.glassfish.jersey.server.mvc.internal.ErrorTemplateExceptionMapper;
 import org.glassfish.jersey.server.mvc.internal.MvcBinder;
 
 import javax.inject.Singleton;
-import javax.ws.rs.ext.ParamConverterProvider;
 import javax.ws.rs.ext.WriterInterceptor;
 import java.util.Map;
 
@@ -49,7 +48,6 @@ public class WebConfig extends ResourceConfig {
 		@Override
 		protected void configure() {
 			bind(MvcTemplateMethodInterceptor.class).to(WriterInterceptor.class).in(Singleton.class);
-			bind(DateProvider.class).to(ParamConverterProvider.class).ranked(10);
 		}
 
 	}

@@ -42,8 +42,8 @@
             <div class="panel-heading">
                 <form class="form-inline" role="form" method="get" action="${contextPath}/admin/product.html">
                     <div class="form-group">
-                        <label for="productname">商品名: </label>
-                        <input class="form-control" id="productname" name="productname" placeholder="商品名: 输入*模糊匹配" type="text" value="${request.getParameter("productname")!}">
+                        <label for="name">商品名: </label>
+                        <input class="form-control" id="name" name="name" placeholder="商品名: 输入*模糊匹配" type="text" value="${request.getParameter("name")!}">
                     </div>
                     &nbsp;
                     <div class="form-group">
@@ -68,7 +68,7 @@
                             <th>商品介绍</th>
                             <th>封面图</th>
                             <th>原价</th>
-                            <th width="30%">操作</th>
+                            <th width="25%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,9 +82,10 @@
                                     <td>${model.price!}</td>
                                     <td nowrap="nowrap">
                                         <input type="hidden" name="id" class="product-id" value="${model.id}">
+                                        <input type="hidden" name="discount-id" class="discount-id" value="${model.discount.id}">
                                         <span class="action-normal">
                                             <button class="fa fa-edit btn btn-white"> 编辑</button>
-                                            <button class="fa fa-level-down btn btn-white"> 编辑折扣</button>
+                                            <button class="fa fa-file-image-o btn btn-white"> 编辑详情图</button>
                                             <button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
                                         </span>
                                     </td>
@@ -194,8 +195,7 @@
         });
 
         $(".fa-level-down").click(function() {
-            var id = $(this).parents("tr").find("input:hidden").val();
-            location.href = "${contextPath}/admin/product/discount.html?product_id=" + id;
+            location.href = "${contextPath}/admin/product-detailPhoto.html";
         });
 
     });
