@@ -104,9 +104,32 @@
                                                 <span data-dz-name="">${(model.coverPhoto)!}</span>
                                             </div>
                                         </div>
-                                        <a class="dz-remove" href="javascript:undefined;" data-dz-remove="">删除文件</a>
+                                        <a class="dz-remove" id="removecp" href="javascript:undefined;" data-dz-remove="">删除文件</a>
                                         <input type="hidden" name="coverPhoto" value="${(model.coverPhoto)!}">
                                     </div>
+                                </#if>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">详情图</label>
+                        <div class="col-sm-10">
+                            <div class="upload dropzone <#if (model.detailPhoto)??>dz-started</#if>" id="details">
+                                <#if (model.detailPhoto)??>
+                                    <#list model.detailPhoto as photo>
+                                    <div class="dz-preview dz-processing dz-success dz-complete dz-image-preview">
+                                        <div class="dz-image">
+                                            <img src="${(photo)!}">
+                                        </div>
+                                        <div class="dz-details">
+                                            <div class="dz-filename">
+                                                <span data-dz-name="">${(photo)!}</span>
+                                            </div>
+                                        </div>
+                                        <a class="dz-remove" id="removedp" href="javascript:undefined;" data-dz-remove="">删除文件</a>
+                                        <input type="hidden" name="detailPhoto" value="${(photo)!}">
+                                    </div>
+                                    </#list>
                                 </#if>
                             </div>
                         </div>
@@ -282,11 +305,50 @@
                 });
             }
         };
-        $(".dz-remove").click(function() {
+
+        Dropzone.options.details = {
+            url: "${contextPath}/admin/upload.json",
+            maxFilesize: 2,
+            addRemoveLinks: true,
+            createImageThumbnails: false,
+            acceptedFiles: "image/*",
+            dictDefaultMessage: "拖放文件到此上传",
+            dictRemoveFile: "删除文件",
+            dictCancelUpload: "取消上传",
+            dictRemoveFileConfirmation: "真的要删除这个文件吗？",
+            init: function() {
+                var detail = this;
+                detail.on("success", function(file, data, e) {
+                    var exists = false;
+                    $(".upload img").each(function() {
+                        if ($(this).attr("src") == data.url) {
+                            toastr.error('这张图片已经上传过了哟。');
+                            exists = true;
+                        }
+                    });
+                    if (exists) {
+                        detail.removeFile(file);
+                        return;
+                    }
+                    $(file.previewElement).removeClass("dz-file-preview").addClass("dz-image-preview").find("img").attr("src", data.url).attr("alt", data.file_name);
+                    $(file.previewElement).find(".dz-filename>span").text(data.url);
+                    $(file.previewElement).append("<input type=\"hidden\" name=\"detailPhoto\" value=\"" + data.url + "\">");
+                });
+            }
+        };
+
+        $("#removedp").click(function() {
+            if(confirm(Dropzone.options.details.dictRemoveFileConfirmation)) {
+                $(this).parent().remove();
+            }
+        });
+
+        $("#removecp").click(function() {
             if(confirm(Dropzone.options.upload.dictRemoveFileConfirmation)) {
                 $(this).parent().remove();
             }
         });
+
         $(".upload").on("click", ".dz-preview", function() {
             var src = $(this).find("img").attr("src");
             switch (imagePickerName) {

@@ -85,7 +85,7 @@
                                         <input type="hidden" name="discount-id" class="discount-id" value="${model.discount.id}">
                                         <span class="action-normal">
                                             <button class="fa fa-edit btn btn-white"> 编辑</button>
-                                            <button class="fa fa-file-image-o btn btn-white"> 编辑详情图</button>
+                                            <button class="fa fa-level-down btn btn-white"> 编辑折扣</button>
                                             <button class="fa fa-remove btn btn-danger" data-loading-text="处理中..." autocomplete="off"> 删除</button>
                                         </span>
                                     </td>
@@ -195,7 +195,9 @@
         });
 
         $(".fa-level-down").click(function() {
-            location.href = "${contextPath}/admin/product-detailPhoto.html";
+            var id = $(this).parents("tr").find("input[name='id']").val();
+            var discount = $(this).parents("tr").find("input[name='discount-id']").val();
+            location.href = "${contextPath}/admin/discount/"+discount+".html?product_id=" + id;
         });
 
     });
