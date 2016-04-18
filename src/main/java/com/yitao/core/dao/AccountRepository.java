@@ -5,6 +5,7 @@ package com.yitao.core.dao;
 
 import com.yitao.core.model.Account;
 import com.yitao.core.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.QueryHints;
 
 import javax.persistence.QueryHint;
@@ -17,7 +18,7 @@ public interface AccountRepository extends HibernateBasedRepository<Account, Str
 	
 	@QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
 	Account findByUser(User user);
-	
+
 	@QueryHints(@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_CACHEABLE, value = "true"))
 	Account findByUserId(long uid);
 	

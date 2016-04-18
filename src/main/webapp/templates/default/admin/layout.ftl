@@ -19,7 +19,7 @@
 	</#if>
 </#macro>
 
-<#macro layout title=defaultTitle style=defaultStyle content=defaultContent script=defaultFooter nav=defaultNav loc=loc>
+<#macro layout title=defaultTitle style=defaultStyle content=defaultContent script=defaultScript nav=defaultNav loc=loc>
 	<#assign contextPath="http://localhost:8080" />
 	<!doctype html>
 	<html class="no-js" lang="">
@@ -143,7 +143,7 @@
                                     <span>公告管理</span>
                                 </a>
                             </li>
-                            <li class="<@loc "/admin/user.html" "${location}"/>">
+                            <li class="<@loc "/admin/feedback.html" "${location}"/>">
                                 <a href="${contextPath}/admin/feedback.html">
                                     <i class="fa fa-commenting-o"></i>
                                     <span>意见反馈</span>
