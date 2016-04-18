@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -34,6 +35,7 @@ import static com.sun.org.apache.xml.internal.serializer.utils.Utils.messages;
 @EnableTransactionManagement(order = 1000)
 @SpringBootApplication(scanBasePackages = { "com.yitao" })
 @EnableJpaRepositories(basePackages = { "com.yitao.**.dao" }, repositoryBaseClass = DefaultJpaRepository.class)
+@EnableScheduling
 public class AppConfig {
 
 	@Inject
