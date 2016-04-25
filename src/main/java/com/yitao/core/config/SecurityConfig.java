@@ -3,6 +3,9 @@ package com.yitao.core.config;
  * 
  */
 
+import com.yitao.core.jersey.Rest403ForbiddenEntryPoint;
+import com.yitao.core.jersey.RestAccessDeniedHandler;
+import com.yitao.core.jersey.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -42,17 +45,23 @@ public class SecurityConfig {
 	@Configuration
 	@Order(1)
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-		protected void configure(HttpSecurity http) throws Exception {
-			http.antMatcher("/api/**").authorizeRequests().anyRequest().permitAll().and().httpBasic()
-					// .authenticationEntryPoint(
-					// new RestAuthenticationEntryPoint()).and()
-					// .exceptionHandling()
-					// .authenticationEntryPoint(new
-					// Rest403ForbiddenEntryPoint())
-					// .accessDeniedHandler(new RestAccessDeniedHandler())
-					.and().logout().logoutUrl("/api/signout").and().csrf().disable().headers().disable();
-		}
-	}
+        protected void configure(HttpSecurity http) throws Exception {
+            http.antMatcher("/api/**").authorizeRequests().anyRequest().permitAll()
+                    .and()
+                        .httpBasic()
+                        .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                    .and()
+                        .exceptionHandling()
+                        .authenticationEntryPoint(new Rest403ForbiddenEntryPoint())
+                        .accessDeniedHandler(new RestAccessDeniedHandler())
+                    .and()
+                        .logout()
+                        .logoutUrl("/api/signout")
+                    .and()
+                        .csrf().disable()
+                        .headers().disable();
+        }
+    }
 
 	@Configuration
 	@Order(2)

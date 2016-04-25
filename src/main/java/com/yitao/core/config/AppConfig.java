@@ -3,6 +3,7 @@
  */
 package com.yitao.core.config;
 
+import com.yitao.core.Constants;
 import com.yitao.core.jpa.DefaultJpaRepository;
 import com.yitao.core.security.SpringSecurityAuditorAware;
 import org.hibernate.SessionFactory;

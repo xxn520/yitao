@@ -56,10 +56,12 @@ public class SystemInitializer extends YitaoInitializer {
         if (accountRepository.count()==0) {
             Account account = new Account("admin", "123456");
             account.setPassword(passwordEncoder.encode(account.getPassword()));
-            UserGroup group = new UserGroup("管理员", "ROLE_ADMIN", "ROLE_USER");
-            this.userGroupRepository.save(group);
+            UserGroup adminGroup = new UserGroup("管理员", "ROLE_ADMIN", "ROLE_USER");
+            UserGroup userGroup = new UserGroup("用户", "ROLE_USER");
+            this.userGroupRepository.save(adminGroup);
+            this.userGroupRepository.save(userGroup);
             User user = new User(account.getUsername());
-            user.setGroup(group);
+            user.setGroup(adminGroup);
             user.setStudentAuth(new StudentAuth());
             this.userRepository.save(user);
             account.setUser(user);
