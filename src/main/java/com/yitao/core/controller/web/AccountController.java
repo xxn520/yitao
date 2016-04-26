@@ -5,20 +5,23 @@ import com.yitao.core.dao.AccountRepository;
 import com.yitao.core.model.Account;
 import com.yitao.core.model.User;
 import com.yitao.core.security.SpringSecurityAuditorAware;
+import com.yitao.core.service.AbstractService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 
 /**
  * Created by m2mbob on 16/4/25.
  */
 @Controller
 @Path(Constants.API_PATH + "account")
-public class AccountController {
+public class AccountController extends AbstractService{
 
     @Inject
     private SpringSecurityAuditorAware auditorAware;
@@ -34,9 +37,7 @@ public class AccountController {
 
     @PUT
     @Transactional
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public User modifyPassword(@FormParam("username")String username,
-                               @FormParam("password")String password){
+    public User modifyPassword(@FormParam("username")String username, @FormParam("password")String password){
         Account account = this.accountRepository.findOne(username);
         account.setPassword(passwordEncoder.encode(password));
         return this.accountRepository.save(account).getUser();

@@ -13,7 +13,7 @@
 		<#list error.stackTrace as trace>
 		    ${trace.className}${trace.lineNumber}<br>
 		</#list>
-        <a href="${request.contextPath}/index.html">返回首页</a>
+        <a href="${contextPath}/index.html">返回首页</a>
         <a href="javascript:history.back();">上一页</a>
     </p>
 </div>
