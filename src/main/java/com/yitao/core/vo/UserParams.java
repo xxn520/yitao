@@ -25,7 +25,9 @@ public class UserParams extends ModelParams<User> {
 	 */
 	@Override
 	public User getModel() {
-		this.model.setGroup(new UserGroup(groupId));
+        if(groupId!=null) {
+            this.model.setGroup(new UserGroup(groupId));
+        }
 		if(studentAuthId!=null){
 			this.model.setStudentAuth(new StudentAuth(studentAuthId));
 		}else{

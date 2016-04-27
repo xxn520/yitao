@@ -63,6 +63,7 @@ public class User extends BaseModel {
 	 */
 	public User(String username) {
 		this.username = username;
+        this.phone = username;
 	}
 
 	/**

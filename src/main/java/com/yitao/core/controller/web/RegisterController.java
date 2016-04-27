@@ -47,7 +47,7 @@ public class RegisterController extends AbstractService{
             account.setPassword(passwordEncoder.encode(account.getPassword()));
             User user = new User(account.getUsername());
             user.setGroup(userGroupRepository.findFirstByName("用户"));
-            user.setStudentAuth(new StudentAuth());
+            user.setStudentAuth(new StudentAuth(StudentAuth.Status.UNAUDITED));
             userRepository.save(user);
             account.setUser(user);
             repository.save(account);

@@ -20,6 +20,11 @@ public class StudentAuth extends BaseModel{
     public StudentAuth() {
     }
 
+    public StudentAuth(Status status) {
+        super();
+        this.setStatus(status);
+    }
+
     public StudentAuth(Long id) {
         super(id);
     }

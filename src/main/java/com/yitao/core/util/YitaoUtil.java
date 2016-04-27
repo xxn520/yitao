@@ -41,13 +41,16 @@ public abstract class YitaoUtil {
 		String md5 = DigestUtils.md5DigestAsHex(FileUtils.openInputStream(file));
 		String filename = md5 + "."
 				+ FilenameUtils.getExtension(upload.getBody().getFormDataContentDisposition().getFileName());
+        if(StringUtils.endsWith(filename, ".")){
+            filename = filename + "jpeg";
+        }
 		upload.getModel().setFilePath(path + filename);
 		upload.getModel().setUrl(urlPath + filename);
 		upload.getModel().setFileName(rawFilename);
 		upload.getModel().setContentType(upload.getBody().getMediaType().toString());
 		File f = new File(upload.getModel().getFilePath());
 		if (!(f.exists() && DigestUtils.md5DigestAsHex(new FileInputStream(f)).equals(md5))) {
-			FileUtils.copyFile(file, f);
+            FileUtils.copyFile(file, f);
 		}
 	}
 	
@@ -63,4 +66,5 @@ public abstract class YitaoUtil {
 		}
 		return map;
 	}
+
 }
