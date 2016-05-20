@@ -23,7 +23,7 @@ public class IndexAdminController extends AbstractService{
     @Inject
     private BizRepository bizRepository;
     @Inject
-    private ProductRepsository productRepsository;
+    private ProductRepository productRepsository;
     @Inject
     private CategoryRepository categoryRepository;
     @Inject

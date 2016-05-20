@@ -10,7 +10,6 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 import javax.persistence.*;
 import javax.ws.rs.FormParam;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +34,7 @@ public class Product extends BaseModel{
     @FormParam("health")
     private boolean heath;
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> detailPhoto;                   // 详情照片
+    private Set<String> detailPhoto;                   // 详情照片
     @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     @IndexedEmbedded
@@ -87,11 +86,11 @@ public class Product extends BaseModel{
         this.heath = heath;
     }
 
-    public List<String> getDetailPhoto() {
+    public Set<String> getDetailPhoto() {
         return detailPhoto;
     }
 
-    public void setDetailPhoto(List<String> detailPhoto) {
+    public void setDetailPhoto(Set<String> detailPhoto) {
         this.detailPhoto = detailPhoto;
     }
 

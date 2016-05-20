@@ -8,7 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.ws.rs.FormParam;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author iDay
@@ -40,7 +40,7 @@ public class User extends BaseModel {
 	private boolean enabled;
 	@ManyToMany(fetch = FetchType.LAZY)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private List<Product> products;
+	private Set<Product> products;
 	@OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private StudentAuth studentAuth;
 
@@ -201,11 +201,11 @@ public class User extends BaseModel {
 		this.enabled = enabled;
 	}
 
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 

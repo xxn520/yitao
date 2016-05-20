@@ -3,9 +3,7 @@ package com.yitao.core.vo;
 import com.yitao.core.model.*;
 
 import javax.ws.rs.FormParam;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +20,7 @@ public class ProductParams extends ModelParams<Product>{
     @FormParam("discount_id")
     private Long discountId;
     @FormParam("detailPhoto")
-    private List<String> detailPhoto;
+    private Set<String> detailPhoto;
 
     @Override
     public Product getModel() {
@@ -30,11 +28,12 @@ public class ProductParams extends ModelParams<Product>{
         for (Long category : categories) {
             this.model.getCategories().add(new Category(category));
         }
-        this.model.setDetailPhoto(new ArrayList<>());
-        for (String photo : detailPhoto) {
-            this.model.getDetailPhoto().add(photo);
+        if(detailPhoto!=null){
+            this.model.setDetailPhoto(detailPhoto);
         }
-        this.model.setBiz(new Biz(bizId));
+        if(bizId != null){
+            this.model.setBiz(new Biz(bizId));
+        }
         if(brandId != null){
             this.model.setBrand(new Brand(brandId));
         }

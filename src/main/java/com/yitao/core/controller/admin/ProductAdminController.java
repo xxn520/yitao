@@ -2,7 +2,7 @@ package com.yitao.core.controller.admin;
 
 import com.yitao.core.Constants;
 import com.yitao.core.dao.BizRepository;
-import com.yitao.core.dao.ProductRepsository;
+import com.yitao.core.dao.ProductRepository;
 import com.yitao.core.model.Product;
 import com.yitao.core.service.AbstractCrudController;
 import com.yitao.core.vo.PageImpl;
@@ -25,7 +25,7 @@ import javax.ws.rs.core.UriInfo;
 @Controller
 @Path(Constants.ADMIN_PATH + "product")
 @RolesAllowed("ROLE_ADMIN")
-public class ProductAdminController extends AbstractCrudController<ProductRepsository, ProductParams, Product, Long>{
+public class ProductAdminController extends AbstractCrudController<ProductRepository, ProductParams, Product, Long>{
 
     @Inject
     private BizRepository bizRepository;

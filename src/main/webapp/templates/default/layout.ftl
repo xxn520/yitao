@@ -11,7 +11,7 @@
 </#macro>
 
 <#macro layout title=defaultTitle style=defaultStyle content=defaultContent script=defaultFooter>
-    <#assign contextPath="http://localhost:8080" />
+    <#assign contextPath="http://m2mbob.cn:8080" />
     <!DOCTYPE html>
     <html lang="zh-cn">
     <head>
