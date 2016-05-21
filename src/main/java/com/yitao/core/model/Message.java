@@ -54,6 +54,9 @@ public class Message extends BaseModel{
         this.msgto = msgto;
     }
 
+    /**
+     * 系统消息, 私信, 收藏
+     */
     public static enum Type {
         SYSTEM_MSG, PRIVATE_MSG, COLLECT_PRODUCT_MSG;
     }
